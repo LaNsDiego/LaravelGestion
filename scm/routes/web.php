@@ -20,6 +20,10 @@ Route::get('/', function () {
 Route::get('/proyecto/listar/{UsuarioId}', 'ProyectoController@listar');
 Route::get('/proyecto/agregar/{UsuarioId}', 'ProyectoController@agregar');
 Route::post('/proyecto/guardar', 'ProyectoController@guardar');
+
+Route::get('/SolicitudCambio/listar/{UsuarioId}', 'SolicitudCambio@listar');
+Route::get('/SolicitudCambio/agregar/{UsuarioId}', 'SolicitudCambio@agregar');
+Route::post('/SolicitudCambio/guardar', 'SolicitudCambio@guardar');
 // Route::post('/proyecto/agregar', function(Request $request){
 //     return response()->json(['res'=>$request->all()]);
 // });
