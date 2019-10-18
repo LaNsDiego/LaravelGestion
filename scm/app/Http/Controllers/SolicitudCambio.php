@@ -13,4 +13,8 @@ class SolicitudCambio extends Controller
     public function agregar($UsuarioId){
         return view('SolicitudCambio.agregar');
     }
+
+    public function atender($UsuarioId){
+        return view('SolicitudCambio.atender');
+    }
 }

@@ -23,6 +23,7 @@ Route::post('/proyecto/guardar', 'ProyectoController@guardar');
 
 Route::get('/SolicitudCambio/listar/{UsuarioId}', 'SolicitudCambio@listar');
 Route::get('/SolicitudCambio/agregar/{UsuarioId}', 'SolicitudCambio@agregar');
+Route::get('/SolicitudCambio/atender/{UsuarioId}', 'SolicitudCambio@atender');
 Route::post('/SolicitudCambio/guardar', 'SolicitudCambio@guardar');
 // Route::post('/proyecto/agregar', function(Request $request){
 //     return response()->json(['res'=>$request->all()]);
