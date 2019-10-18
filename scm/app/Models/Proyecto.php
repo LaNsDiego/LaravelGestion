@@ -10,8 +10,12 @@ class Proyecto extends Model
     public $timestamps = false;
 
     public function Guardar(){
-        $this->save();
-        return $this->$id;
+        if($this->save()){
+            //dd($this);
+            return $this->id;
+        }
+        return 0 ;
+        
     }
 
     public static function ObtenerPorId($ProyectoId){

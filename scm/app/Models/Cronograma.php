@@ -16,6 +16,6 @@ class Cronograma extends Model
 
     public function Guardar(){
         $this->save();
-        return $this->$id;
+        return $this->id;
     }
 }

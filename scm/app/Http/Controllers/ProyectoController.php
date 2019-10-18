@@ -20,6 +20,7 @@ class ProyectoController extends Controller
         $Proyecto->fechatermino = $request->input('fechatermino');
         $Proyecto->metodologiaid = $request->input('metodologiaid');
         $Proyecto->Guardar();
+        $UsuarioId = $request->input('usuariojefeid');
         if($Proyecto->id > 0){
 
             $Cronograma = new \App\Models\Cronograma();
@@ -29,15 +30,15 @@ class ProyectoController extends Controller
             $Cronograma->Guardar();
             if($Cronograma->id > 0){
                 $ListadoCronogramaFaseId = $request->input('fases');
-                foreach($CronogramaFaseId as $ListadoCronogramaFaseId){
-                    $CronogramaFase = \App\Models\CronogramaFase();
+                foreach($ListadoCronogramaFaseId  as $CronogramaFaseId){
+                    $CronogramaFase = new \App\Models\CronogramaFase();
                     $CronogramaFase->cronogramaid = $Cronograma->id;
                     $CronogramaFase->metodologiafaseid = $CronogramaFaseId;
                     $CronogramaFase->Guardar();
                     if($CronogramaFase->id > 0){
                         $ListadoElementoId = $request->input($CronogramaFaseId);
-                        foreach($ElementoId as $ListadoElementoId){
-                            $ElementoConfiguracion = \App\Models\ElementoConfiguracion();
+                        foreach( $ListadoElementoId as $ElementoId){
+                            $ElementoConfiguracion = new \App\Models\ElementoConfiguracion();
                             $ElementoConfiguracion->codigo = "ele"+$ElementoId;
                             $ElementoConfiguracion->nombre = "elemento" + $ElementoId;
                             $ElementoConfiguracion->faseid = $CronogramaFase->id;
