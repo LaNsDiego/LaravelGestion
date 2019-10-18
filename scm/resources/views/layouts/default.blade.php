@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
@@ -30,17 +30,17 @@
       <!-- page end-->
     </main>
     <!-- Essential javascripts for application to work-->
-    <script src="assets/js/jquery-3.2.1.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="assets/js/plugins/pace.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/sweetalert.min.js"></script>
+    <script src="/assets/js/plugins/pace.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/sweetalert.min.js"></script>
     <!-- Data table plugin-->
-    <script type="text/javascript" src="assets/js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/dataTables.bootstrap.min.js"></script>
     <!-- Page specific javascripts-->
-    <script src="assets/js/functions.js"></script>
+    <script src="/assets/js/functions.js"></script>
   </body>
 </html>

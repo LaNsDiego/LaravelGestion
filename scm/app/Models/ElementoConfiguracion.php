@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CronogramaFase extends Model
+class ElementoConfiguracion extends Model
 {
-    protected $table = "cronograma_fase";
+    protected $table = 'elemento_configuracion';
     public $timestamps = false;
 }

@@ -11,6 +11,15 @@
 |
 */
 
+use Illuminate\Http\Request; 
+
 Route::get('/', function () {
     return view('pages.home');
 });
+
+Route::get('/proyecto/listar/{UsuarioId}', 'ProyectoController@listar');
+Route::get('/proyecto/agregar/{UsuarioId}', 'ProyectoController@agregar');
+Route::post('/proyecto/guardar', 'ProyectoController@guardar');
+// Route::post('/proyecto/agregar', function(Request $request){
+//     return response()->json(['res'=>$request->all()]);
+// });
