@@ -24,6 +24,13 @@ Route::get('/', function () {
 Route::get('/metodologia/listar', 'MetodologiaController@Listar');
 Route::get('/metodologia/m{MetodologiaId}', 'MetodologiaController@Detalle');
 Route::get('/metodologia/agregar', 'MetodologiaController@Agregar');
+Route::post('/metodologia/agregar', 'MetodologiaController@ActAgregar');
+
+//Fase
+Route::post('/fase/agregar', 'FaseController@ActAgregar');
+
+//Elemento de Configuracion
+Route::get('/elemento-configuracion/listar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@Listar');
 
 //Proyecto
 Route::get('/proyecto/listar', 'ProyectoController@Listar')->name('proyecto.listar');
@@ -34,10 +41,6 @@ Route::post('/proyecto/agregar', 'ProyectoController@ActAgregar');
 
 //Plantilla Fase
 Route::get('/metodologia-fase/listar/{MetodologiaId}', 'MetodologiaFaseController@ListarPorMetodologiaId')->name('metodologia_fase.listar');
-
-//Elemento de Configuracion
-Route::get('/elemento-configuracion/listar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@Listar');
-
 
 
 ///SOLICITUD DE CAMBIO

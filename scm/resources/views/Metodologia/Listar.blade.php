@@ -14,17 +14,20 @@
           <thead>
             <tr>
               <th class="text-center" width="25px">#</th>
-              <th>NOMBRE DE LA METODOLOGIA</th>
-              <th class="text-center">Acciones</th>
+              <th  width="100px">CÓDIGO</th>
+              <th>NOMBRE</th>
+              <th class="text-center" width="150px">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($Lista as $Metodologia)
+            @foreach($ListaMetodologia as $Metodologia)
                 <tr>
-                    <td>{{$Metodologia->id}}</td>
-                    <td>{{$Metodologia->nombre}}</td>
+                    <td class="text-center">{{ $Metodologia->id }}</td>
+                    <td>{{ $Metodologia->codigo }}</td>
+                    <td>{{ $Metodologia->nombre }}</td>
                     <td class="text-center">
-                        <a href="/metodologia/m{{$Metodologia->id}}" class="btn btn-primary btn-sm text-uppercase">Seleccionar</a>
+                        <a href="/metodologia/m{{ $Metodologia->id }}" class="btn btn-primary btn-sm text-uppercase">Ver</a>
+                        <a href="" class="btn btn-success btn-sm text-uppercase">Editar</a>
                     </td>
                 </tr>
             @endforeach

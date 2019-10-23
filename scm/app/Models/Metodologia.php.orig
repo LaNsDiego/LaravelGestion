@@ -23,3 +23,5 @@ class Metodologia extends Model
 >>>>>>> 60bf1d7fa735e9ddcb77ccd82cac7a61e989044e
     }
 }
+
+?>
