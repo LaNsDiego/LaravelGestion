@@ -11,7 +11,7 @@ class ProyectoController extends Controller
         return view('proyecto.listar',['ListaProyecto' => \App\Models\Proyecto::ListarPorUsuarioId($UsuarioId)]);
     }
 
-    public function guardar(Request $request){
+    public function ActAgregar(Request $request){
         $Proyecto = new \App\Models\Proyecto();
         $Proyecto->codigo = "PRJ002";
         $Proyecto->nombre = $request->input('nombre');
@@ -23,11 +23,20 @@ class ProyectoController extends Controller
         $UsuarioId = $request->input('usuariojefeid');
         if($Proyecto->id > 0){
 
+            // YO
             $Cronograma = new \App\Models\Cronograma();
             $Cronograma->proyectoid= $Proyecto->id;
             $Cronograma->fechainicio= $request->input('fechainicio');
             $Cronograma->fechatermino= $request->input('fechatermino');
             $Cronograma->Guardar();
+
+            // PROFE
+            $Cronograma = new \App\Models\Cronograma();
+            $Cronograma->proyectoid= $Proyecto->id;
+            $Cronograma->fechainicio= $request->input('fechainicio');
+            $Cronograma->fechatermino= $request->input('fechatermino');
+            Cronograma::Guardar($Cronograma);
+
             if($Cronograma->id > 0){
                 $ListadoCronogramaFaseId = $request->input('fases');
                 foreach($ListadoCronogramaFaseId  as $CronogramaFaseId){
