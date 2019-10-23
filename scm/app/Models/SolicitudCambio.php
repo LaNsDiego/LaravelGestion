@@ -9,3 +9,5 @@ class SolicitudCambio extends Model
     protected $table = 'solicitud_cambio';
     public $timestamps = false;
 }
+
+?>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolsTable extends Migration
+class CreatePlantillaElementoConfiguracionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateRolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rol', function (Blueprint $table) {
+        Schema::create('plantilla_elemento_configuracion', function (Blueprint $table) {
             $table->increments('Id');
             $table->string('Nombre');
+            $table->string('Codigo');
+            $table->integer('FaseId');
         });
     }
 
@@ -26,6 +28,6 @@ class CreateRolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rol');
+        Schema::dropIfExists('plantilla_elemento_configuracion');
     }
 }

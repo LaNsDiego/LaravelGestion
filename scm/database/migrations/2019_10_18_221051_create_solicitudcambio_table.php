@@ -14,15 +14,14 @@ class CreateSolicitudcambioTable extends Migration
     public function up()
     {
         Schema::create('solicitud_cambio', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('proyectoid');
-            $table->integer('miembrosolicitanteid');
-            $table->date('fecha');
-            $table->string('objetivo');
-            $table->string('descripcion');
-            $table->integer('estado');
-            $table->integer('miembrojefeid');
-
+            $table->increments('Id');
+            $table->integer('Proyectoid');
+            $table->integer('MiembroSolicitanteId');
+            $table->date('Fecha');
+            $table->string('Objetivo');
+            $table->string('Descripcion');
+            $table->integer('Estado');
+            $table->integer('MiembroJefeId');
         });
     }
 

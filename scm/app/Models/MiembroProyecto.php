@@ -9,3 +9,5 @@ class MiembroProyecto extends Model
     protected $table = 'miembro_proyecto';
     public $timestamps = false;
 }
+
+?>

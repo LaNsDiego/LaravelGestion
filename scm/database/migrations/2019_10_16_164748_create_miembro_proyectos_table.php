@@ -14,10 +14,10 @@ class CreateMiembroProyectosTable extends Migration
     public function up()
     {
         Schema::create('miembro_proyecto', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('usuariomiembroid');
-            $table->integer('rolid');
-            $table->integer('proyectoid');
+            $table->increments('Id');
+            $table->integer('UsuarioMiembroid');
+            $table->integer('RolId');
+            $table->integer('ProyectoId');
         });
     }
 

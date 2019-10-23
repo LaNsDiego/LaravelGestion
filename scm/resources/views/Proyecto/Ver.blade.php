@@ -4,8 +4,8 @@
 <!-- title -->
 <div class="app-title">
     <div>
-        <h1>Proyecto x</h1>
-        <p>Descripción del proyecto</p>
+        <h1>{{$Proyecto->Nombre}}</h1>
+        <p>{{$Proyecto->Descripcion}}</p>
     </div>
 </div>
 <!-- content -->
@@ -28,8 +28,8 @@
             <div class="w-100 pb-2">
                 <div class="w-100">
                     <ul class="ul-list list-fecha-p">
-                        <li>Fecha de inicio: <b>21 de Octubre del 2019</b></li>
-                        <li>Fecha de finalización: <b>21 de Noviembre del 2019</b></li>
+                        <li>Fecha de inicio: <b>{{$Proyecto->FechaInicio}}</b></li>
+                        <li>Fecha de finalización: <b>{{$Proyecto->FechaTermino}}</b></li>
                     </ul>
                 </div>
             </div>
@@ -53,7 +53,7 @@
     <div class="tile p-0">
         <div class="card">
             <div class="card-header card-header-m">
-                <span>Metodologia RUP</span>
+                <span>Metodologia :{{$Proyecto->MetodologiaId}}</span>
             </div>
         </div>
       <div class="w-100">
@@ -61,10 +61,52 @@
         <div class="accordion">
             <!-- fase -->
             <div class="card">
-                <!-- header -->
-                <div class="card-header card-header-main d-flex align-items-center">
-                    <a href="#" class="ml-3" data-toggle="collapse" data-target="#Fase1">Análisis</a>
-                </div>
+                @foreach($ListadoFase as $Fase)
+                    <!-- header -->
+                    <div class="card-header card-header-main d-flex align-items-center">
+                        <a href="#" class="ml-3" data-toggle="collapse" data-target="#{{$Fase->Nombre}}">{{$Fase->Nombre}}</a>
+                    </div>
+
+                @endforeach
+                @foreach($ListadoFase as $Elemento)
+                    <!-- body -->
+                        <div id="{{$Fase->Nombre}}" class="collapse show__x">
+                            <div class="card-body">
+                                <!-- accordion elementos -->
+                                <div class="accordion" id="AccordionFase1Elementos">
+                                    <!-- item -->
+                                    <div class="card card-elemento">
+                                        <div class="card-header header-elemento">
+                                            <a href="#" data-toggle="collapse" data-target="#Fase1Elemento1">Elemento de configuración 1</a>
+                                        </div>
+                                        <div id="Fase1Elemento1" class="collapse show__x" data-parent="#AccordionFase1Elementos">
+                                            <div class="card-body">
+                                                <!-- versiones -->
+                                                <div class="w-100 pb-2 text-right">
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion"><i class="fa fa-plus" aria-hidden="true"></i>Agregar Versión</button>
+                                                </div>
+                                                <!-- version -->
+                                                <div class="elemento-item">
+                                                    <a href="/elemento-configuracion/listar/1">
+                                                        <div class="">Versión 1</div>
+                                                    </a>
+                                                </div>
+                                                <!-- version -->
+
+                                                <!-- versiones -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- item -->
+
+                                </div>
+                                <!-- accordion elementos -->
+                            </div>
+                        </div>
+                @endforeach
+            </div>
+            <!-- fase -->
+
                 <!-- body -->
                 <div id="Fase1" class="collapse show__x">
                     <div class="card-body">

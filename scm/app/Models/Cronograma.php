@@ -11,11 +11,20 @@ class Cronograma extends Model
     public $timestamps = false;
 
     public static function ListarCronogramaFasePorCronogramaId($CronogramaId){
-        CronogramaFase::where('cronogramaid',$CronogramaId)->get();
+        CronogramaFase::where('CronogramaId',$CronogramaId)->get();
     }
 
-    public function Guardar(){
-        $this->save();
-        return $this->id;
+    public static function Agregar(Cronograma $Cronograma){
+        if($Cronograma->save()){
+            return $Cronograma->id;
+        }
+        return 0;
+    }
+
+    public static function ObtenerPorProyectoId($ProyectoId)
+    {
+        return Cronograma::where('ProyectoId',$ProyectoId)->firstOrFail();
     }
 }
+
+?>

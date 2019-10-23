@@ -14,9 +14,9 @@ class CreateCronogramaFasesTable extends Migration
     public function up()
     {
         Schema::create('cronograma_fase', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('cronogramaid');
-            $table->integer('metodologiafaseid');
+            $table->increments('Id');
+            $table->integer('CronogramaId');
+            $table->string('Nombre');
         });
     }
 

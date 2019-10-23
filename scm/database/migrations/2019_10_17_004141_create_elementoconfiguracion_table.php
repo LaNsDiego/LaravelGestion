@@ -14,10 +14,10 @@ class CreateElementoconfiguracionTable extends Migration
     public function up()
     {
         Schema::create('elemento_configuracion', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('codigo');
-            $table->string('nombre');
-            $table->integer('faseid');
+            $table->increments('Id');
+            $table->string('Codigo');
+            $table->string('Nombre');
+            $table->integer('FaseId');
         });
     }
 

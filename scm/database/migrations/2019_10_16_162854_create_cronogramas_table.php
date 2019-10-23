@@ -14,10 +14,10 @@ class CreateCronogramasTable extends Migration
     public function up()
     {
         Schema::create('cronograma', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('proyectoid');
-            $table->date('fechainicio');
-            $table->date('fechatermino');
+            $table->increments('Id');
+            $table->integer('Proyectoid');
+            $table->date('FechaInicio');
+            $table->date('FechaTermino');
         });
     }
 

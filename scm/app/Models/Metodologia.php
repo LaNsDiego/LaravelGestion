@@ -8,4 +8,10 @@ class Metodologia extends Model
 {
     protected $table = 'metodologia';
     public $timestamps = false;
+
+    public static  function Listar(){
+        return Metodologia::get();
+    }
 }
+
+?>

@@ -3,93 +3,107 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cronograma;
+use App\Models\CronogramaFase;
+use App\Models\ElementoConfiguracion;
+use App\Models\Metodologia;
+use App\Models\MetodologiaFase;
 use Illuminate\Http\Request;
 use App\Models\Proyecto as Proyecto;
+use Illuminate\Support\Facades\Log;
 
 class ProyectoController extends Controller
 {
     public function Listar(){
-        $obj = new Proyecto();
-        $obj->id = 1;
-        $obj->nombre = "Proyecto x";
-        $obj->fechainicio = "15-10-2019";
-        $obj->fechatermino = "15-11-2019";
-        $obj->estado = "Abierto";
-        $ListaProyecto = array();
-        array_push($ListaProyecto, $obj);
-        return view('Proyecto.Listar',['ListaProyecto' => $ListaProyecto]);
+        $ListadoProyecto = Proyecto::get();
+
+        return view('proyecto.listar',[
+            'ListadoProyecto' => $ListadoProyecto
+        ]);
     }
 
-    public function Detalle()
+    public function Ver($ProyectoId)
     {
-        return view('Proyecto.Detalle');
+        $Cronograma = Cronograma::ObtenerPorProyectoId($ProyectoId);
+//        Log:info('CronogramaId '.$Cronograma->Id);
+        return view('proyecto.ver',[
+            'Proyecto' => Proyecto::find($ProyectoId),
+            'Cronograma' => $Cronograma,
+            'ListadoFase' => CronogramaFase::where('CronogramaId',$Cronograma->Id)->get()
+        ]);
     }
 
-    public function Agregar(){
-        return view('Proyecto.Agregar');
+    public function FrmAgregar(){
+        $ListadoMetodoliga = Metodologia::Listar();
+        return view('proyecto.agregar',[
+            'ListadoMetodologia' => $ListadoMetodoliga
+        ]);
     }
 
     public function ActAgregar(Request $request){
-        $Proyecto = new \App\Models\Proyecto();
-        $Proyecto->codigo = "PRJ002";
-        $Proyecto->nombre = $request->input('nombre');
-        $Proyecto->usuariojefeid = $request->input('usuariojefeid');
-        $Proyecto->fechainicio = $request->input('fechainicio');
-        $Proyecto->fechatermino = $request->input('fechatermino');
-        $Proyecto->metodologiaid = $request->input('metodologiaid');
-        $Proyecto->Guardar();
-        $UsuarioId = $request->input('usuariojefeid');
-        if($Proyecto->id > 0){
+//        dd($request);
+        $Proyecto = new Proyecto();
+        $Proyecto->Codigo = "PRJ002";
+        $Proyecto->Nombre = $request->input('Nombre');
+        $Proyecto->UsuarioJefeId = $request->input('UsuarioJefeId');
+        $Proyecto->FechaInicio = $request->input('FechaInicio');
+        $Proyecto->FechaTermino = $request->input('FechaTermino');
+        $Proyecto->MetodologiaId = $request->input('MetodologiaId');
+        $Proyecto->Descripcion = $request->input('Descripcion');
+        $Proyecto->Estado = 'En Progreso';
+        $UsuarioId = $Proyecto->UsuarioJefeId;
+        if(Proyecto::Agregar($Proyecto) > 0){
+            $Cronograma = new Cronograma();
+            $Cronograma->ProyectoId= $Proyecto->id;
+            $Cronograma->FechaInicio= $request->input('FechaInicio');
+            $Cronograma->FechaTermino= $request->input('FechaTermino');
 
-            // YO
-            $Cronograma = new \App\Models\Cronograma();
-            $Cronograma->proyectoid= $Proyecto->id;
-            $Cronograma->fechainicio= $request->input('fechainicio');
-            $Cronograma->fechatermino= $request->input('fechatermino');
-            $Cronograma->Guardar();
-
-            // PROFE
-            $Cronograma = new \App\Models\Cronograma();
-            $Cronograma->proyectoid= $Proyecto->id;
-            $Cronograma->fechainicio= $request->input('fechainicio');
-            $Cronograma->fechatermino= $request->input('fechatermino');
-            Cronograma::Guardar($Cronograma);
-
-            if($Cronograma->id > 0){
-                $ListadoCronogramaFaseId = $request->input('fases');
+            if(Cronograma::Agregar($Cronograma) > 0){
+                $ListadoCronogramaFaseId = $request->input('FasesId');
+                Log::info('Cronograma creado');
                 foreach($ListadoCronogramaFaseId  as $CronogramaFaseId){
-                    $CronogramaFase = new \App\Models\CronogramaFase();
-                    $CronogramaFase->cronogramaid = $Cronograma->id;
-                    $CronogramaFase->metodologiafaseid = $CronogramaFaseId;
-                    $CronogramaFase->Guardar();
-                    if($CronogramaFase->id > 0){
-                        $ListadoElementoId = $request->input($CronogramaFaseId);
-                        foreach( $ListadoElementoId as $ElementoId){
-                            $ElementoConfiguracion = new \App\Models\ElementoConfiguracion();
-                            $ElementoConfiguracion->codigo = "ele"+$ElementoId;
-                            $ElementoConfiguracion->nombre = "elemento" + $ElementoId;
-                            $ElementoConfiguracion->faseid = $CronogramaFase->id;
-                            $ElementoConfiguracion->Guardar();
-                            if($ElementoConfiguracion->id > 0){
-                                return view('proyecto.listar',['ListaProyecto' => \App\Models\Proyecto::ListarPorUsuarioId($UsuarioId)]);
-                            }else{
-                                return redirect()->route('proyecto.agregar',$request->input('usuariojefeid'));    
-                            }
+                    Log::info('Fase n° :'.$CronogramaFaseId);
+                    $CronogramaFase = new CronogramaFase();
+                    $CronogramaFase->CronogramaId = $Cronograma->id;
+                    $CronogramaFase->Nombre = $CronogramaFaseId;
+                    if(CronogramaFase::Agregar($CronogramaFase) > 0){
 
+                        $ListadoElementoId = $request->input($CronogramaFase->Nombre);
+                        Log::info('imprimiendo array  elementos');
+                        Log::info($ListadoElementoId);
+                        foreach( $ListadoElementoId as $ElementoNombre){
+                              Log::info('Elemento n°:'.$ElementoNombre);
+                            $ElementoConfiguracion = new ElementoConfiguracion();
+                            $ElementoConfiguracion->Codigo = "ele".$ElementoNombre;
+                            $ElementoConfiguracion->Nombre = $ElementoNombre;
+                            $ElementoConfiguracion->FaseId = $CronogramaFase->id;
+                            if(ElementoConfiguracion::Agregar($ElementoConfiguracion) > 0){
+                                Log::info('ECS creada con id:'.$ElementoConfiguracion->id);
+//                                return redirect()->route('proyecto.listar');
+                            }else{
+////                                return view('proyecto.listar',['ListadoProyecto ' => Proyecto::ListarPorUsuarioId($UsuarioId)]);
+                            }
+//
                         }
                     }else{
-                        return redirect()->route('proyecto.agregar',$request->input('usuariojefeid'));    
+////                        return view('proyecto.listar',['ListadoProyecto ' => Proyecto::ListarPorUsuarioId($UsuarioId)]);
                     }
                 }
                 
             }else{
-                return redirect()->route('proyecto.agregar',$request->input('usuariojefeid'));    
+//                return response()->json($Cronograma);
+//                return view('proyecto.listar',['ListadoProyecto ' => Proyecto::ListarPorUsuarioId($UsuarioId)]);
             }
             
         }else{
-            return redirect()->route('proyecto.agregar',$request->input('usuariojefeid'));
         }
+        return redirect()->route('proyecto.listar');
 
+    }
+
+    public function doPost(){
+        $ObjProyecto = Proyecto::find(1);
+        return response()->json($ObjProyecto);
     }
 }
 ?>

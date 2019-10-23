@@ -14,10 +14,9 @@ class CreateMetodologiaFasesTable extends Migration
     public function up()
     {
         Schema::create('metodologia_fase', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
-            $table->integer('metodologiaid');
-            $table->integer('cronogramaid');
+            $table->increments('Id');
+            $table->string('Nombre');
+            $table->integer('MetodologiaId');
         });
     }
 

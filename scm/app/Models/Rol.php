@@ -13,3 +13,5 @@ class Rol extends Model
         return Rol::get();
     }
 }
+
+?>

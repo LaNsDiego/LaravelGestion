@@ -22,15 +22,15 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($ListaProyecto as $Proyecto)
+            @foreach($ListadoProyecto as $Proyecto)
                 <tr>
-                    <td class="text-center">{{$Proyecto->id}}</td>
-                    <td>{{$Proyecto->nombre}}</td>
-                    <td>{{$Proyecto->fechainicio}}</td>
-                    <td>{{$Proyecto->fechatermino}}</td>
-                    <td class="text-center">{{$Proyecto->estado}}</td>
+                    <td class="text-center">{{$Proyecto->Id}}</td>
+                    <td>{{$Proyecto->Nombre}}</td>
+                    <td>{{$Proyecto->FechaInicio}}</td>
+                    <td>{{$Proyecto->FechaTermino}}</td>
+                    <td class="text-center">{{$Proyecto->Estado}}</td>
                     <td>
-                        <a href="/proyecto/p{{$Proyecto->id}}" class="btn btn-success btn-sm text-uppercase">Seleccionar</a>
+                        <a href="/proyecto/p{{$Proyecto->Id}}" class="btn btn-success btn-sm text-uppercase">Seleccionar</a>
                     </td>
                 </tr>
             @endforeach

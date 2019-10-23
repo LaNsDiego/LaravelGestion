@@ -9,10 +9,9 @@ class ElementoConfiguracion extends Model
     protected $table = 'elemento_configuracion';
     public $timestamps = false;
 
-    public function Guardar(){
-        if($this->save()){
-            //dd($this);
-            return $this->id;
+    public static function Agregar(ElementoConfiguracion $ObjElementoConfiguracion){
+        if($ObjElementoConfiguracion->save()){
+            return $ObjElementoConfiguracion->id;
         }
         return 0 ;
         

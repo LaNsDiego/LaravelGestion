@@ -9,12 +9,13 @@ class CronogramaFase extends Model
     protected $table = "cronograma_fase";
     public $timestamps = false;
 
-    public function Guardar(){
-        if($this->save()){
-            //dd($this);
-            return $this->id;
+    public static function Agregar(CronogramaFase $CronogramaFase){
+        if($CronogramaFase->save()){
+            return $CronogramaFase->id;
         }
         return 0 ;
         
     }
 }
+
+?>

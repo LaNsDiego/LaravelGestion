@@ -9,10 +9,9 @@ class Proyecto extends Model
     protected $table = 'proyecto';
     public $timestamps = false;
 
-    public function Guardar(){
-        if($this->save()){
-            //dd($this);
-            return $this->id;
+    public static function Agregar(Proyecto $ObjProyecto){
+        if($ObjProyecto->save()){
+            return $ObjProyecto->id;
         }
         return 0 ;
         
@@ -23,7 +22,7 @@ class Proyecto extends Model
     }
 
     public static function ListarPorUsuarioId($UsuarioId){
-        return Proyecto::where('usuariojefeid',$UsuarioId)->get();
+        return Proyecto::where('UsuarioJefeId',$UsuarioId)->get();
     }
 
 
@@ -33,3 +32,5 @@ class Proyecto extends Model
 
     
 }
+
+?>

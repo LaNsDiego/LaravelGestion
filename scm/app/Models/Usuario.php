@@ -9,3 +9,5 @@ class Usuario extends Model
     protected $table = 'usuario';
     public $timestamps = false;
 }
+
+?>
