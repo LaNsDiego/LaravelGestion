@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ElementoConfiguracion extends Model
+class Fase extends Model
 {
-    protected $table = 'elemento_configuracion';
+    protected $table = 'fase';
     public $timestamps = false;
 
-    public function Guardar()
+    public function Agregar()
     {
         if($this->save())
         {
