@@ -14,38 +14,26 @@
           <thead>
             <tr>
               <th class="text-center" width="25px">#</th>
-              <th>NOMBRE</th>
+              <th>NOMBRE DEL PROYECTO</th>
               <th>FECHA DE INICIO</th>
-              <th>FECHA DE TERMINO</th>
-              <th class="text-center" width="100px">Acciones</th>
+              <th>FECHA DE FINALIZACION</th>
+              <th class="text-center">ESTADO</th>
+              <th class="text-center" width="100px">ACCIONES</th>
             </tr>
           </thead>
           <tbody>
-            
-              <!-- <td>1</td>
-              <td>Proyecto X</td>
-              <td>12/12/2019</td>
-              <td>12/12/2019<br></td>
-              <td class="text-center">
-
-                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
-                <a href="" class="btn btn-success btn-sm Eliminar"><i class="fa fa-calendar fa-2x m-0" aria-hidden="true"></i></a>
-
-              </td> -->
-            
             @foreach($ListaProyecto as $Proyecto)
                 <tr>
-                    <td>{{$Proyecto->id}}</td>
+                    <td class="text-center">{{$Proyecto->id}}</td>
                     <td>{{$Proyecto->nombre}}</td>
                     <td>{{$Proyecto->fechainicio}}</td>
                     <td>{{$Proyecto->fechatermino}}</td>
+                    <td class="text-center">{{$Proyecto->estado}}</td>
                     <td>
-                        <a href="proyecto/{{$Proyecto->id}}" class="btn btn-primary btn-sm"><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
-                        <a href="proyecto/" class="btn btn-success btn-sm"><i class="fa fa-calendar fa-2x m-0" aria-hidden="true"></i></a>
+                        <a href="/proyecto/p{{$Proyecto->id}}" class="btn btn-success btn-sm text-uppercase">Seleccionar</a>
                     </td>
                 </tr>
             @endforeach
-            
           </tbody>
         </table>
       </div>

@@ -17,9 +17,20 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('/proyecto/listar/{UsuarioId}', 'ProyectoController@listar');
-Route::get('/proyecto/agregar/{UsuarioId}', 'ProyectoController@agregar');
+//Metodologia
+Route::get('/metodologia/listar', 'MetodologiaController@Listar');
+Route::get('/metodologia/m{MetodologiaId}', 'MetodologiaController@Detalle');
+Route::get('/metodologia/agregar', 'MetodologiaController@Agregar');
+
+//Proyecto
+Route::get('/proyecto/listar', 'ProyectoController@Listar');
+Route::get('/proyecto/p{ProyectoId}', 'ProyectoController@Detalle');
+Route::get('/proyecto/agregar', 'ProyectoController@Agregar');
 Route::post('/proyecto/guardar', 'ProyectoController@guardar');
+
+//Elemento de Configuracion
+Route::get('/elemento-configuracion/listar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@Listar');
+
 
 
 ///SOLICITUD DE CAMBIO

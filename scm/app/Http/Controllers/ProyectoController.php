@@ -3,12 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
+use App\Models\Proyecto as Proyecto;
 
 class ProyectoController extends Controller
 {
-    public function listar($UsuarioId){
-        return view('proyecto.listar',['ListaProyecto' => \App\Models\Proyecto::ListarPorUsuarioId($UsuarioId)]);
+    public function Listar(){
+        $obj = new Proyecto();
+        $obj->id = 1;
+        $obj->nombre = "Proyecto x";
+        $obj->fechainicio = "15-10-2019";
+        $obj->fechatermino = "15-11-2019";
+        $obj->estado = "Abierto";
+        $ListaProyecto = array();
+        array_push($ListaProyecto, $obj);
+        return view('Proyecto.Listar',['ListaProyecto' => $ListaProyecto]);
+    }
+
+    public function Detalle()
+    {
+        return view('Proyecto.Detalle');
+    }
+
+    public function Agregar(){
+        return view('Proyecto.Agregar');
     }
 
     public function ActAgregar(Request $request){
@@ -72,13 +90,6 @@ class ProyectoController extends Controller
             return redirect()->route('proyecto.agregar',$request->input('usuariojefeid'));
         }
 
-
-        
-    }
-
-    public function agregar($UsuarioId){
-        return view('proyecto.agregar');
     }
 }
-
 ?>
