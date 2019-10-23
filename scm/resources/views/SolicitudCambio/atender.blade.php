@@ -10,25 +10,26 @@
     <div class="col-md-12">
         <form action="/SolicitudCambio/guardar" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" value="{{$solicitudcambio->id}}" name="id" id="id">
             <div class="tile">
                 <h3 class="tile-title">Datos del Proyecto</h3>
                 <div class="tile-body">     
-                    <div class="form-group row">
-                        <div class="col-md-10">
-                            <label class="control-label">Proyecto </label>
-                            <select class="form-control" name="Id_Proyecto" id="Id_Proyecto">
-                                <option value="1">PROYECTO 1</option>
-                                <option value="2">PROYECTO 2</option>
-                                <option value="3">PROYECTO 3</option>
-
-                            </select>
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <label class="control-label">Proyecto </label>
+                                <select class="form-control" name="Proyecto_Id" id="Proyecto_Id">
+                                        @foreach($AProyecto as $be)
+                                        <option value="{{ $be->id }}" {{ $be->id == $solicitudcambio->proyectoid ? 'selected':'' }}>{{ $be->nombre }}</option>
+                                        @endforeach
+    
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="control-label">Fecha </label>
+                            <input type="date" value="{{ $solicitudcambio->fecha }}" class="form-control" id="Fecha" name="Fecha">
+                            </div>
+                            
                         </div>
-                        <div class="col-md-2">
-                            <label class="control-label">Fecha </label>
-                            <input type="date" class="form-control" id="Fecha" name="Fecha">
-                        </div>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -39,17 +40,17 @@
                     <div class="form-group row">
                         <div class="col-md-10">
                             <label class="control-label">Objetivo</label>
-                            <input type="text" class="form-control" id="Objetivo" name="Objetivo">
+                            <input type="text" value="{{ $solicitudcambio->objetivo }}" class="form-control" id="Objetivo" name="Objetivo">
                         </div>
                         <div class="col-md-2">
                             <label for="control-label">Solicitante</label>
-                            <input type="text" class="form-control" readonly id="Solicitante" name="Solicitante">
+                            <input type="text" value="{{ $solicitudcambio->Usuario_Solicitante }}" class="form-control" readonly id="Solicitante" name="Solicitante">
                         </div>
                         
                     </div>
                     <div class="form-group">
                         <label class="control-label">Descripción</label>
-                        <textarea class="form-control" name="descripcion" rows="4"></textarea>
+                        <textarea class="form-control" name="descripcion" rows="4">{{ $solicitudcambio->descripcion }}</textarea>
                     </div>
 
                     <div class="form-group row">
@@ -57,9 +58,9 @@
                         <div class= "col-md-3">
                             <label class="control-label">Estado</label>
                             <select name="Estado" id="Estado" class="form-control">
-                                        <option value="1">Pendiente</option>
-                                        <option value="1">Aprobado</option>
-                                        <option value="1">Rechazado</option>
+                                        <option {{ $solicitudcambio->estado == 1 ? 'selected':'' }} value="1">Pendiente</option>
+                                        <option {{ $solicitudcambio->estado == 2 ? 'selected':'' }} value="2">Aprobado</option>
+                                        <option {{ $solicitudcambio->estado == 3 ? 'selected':'' }} value="3">Rechazado</option>
                             </select>
                         </div>
                         <div class="col-md-6"></div>

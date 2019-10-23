@@ -17,8 +17,8 @@
 
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-folder"></i><span class="app-menu__label">Solicitud de Cambio</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="../../SolicitudCambio/listar/1"><i class="icon fa fa-circle-o"></i> Listar</a></li>
-            <li><a class="treeview-item" href="../../SolicitudCambio/agregar/1"><i class="icon fa fa-circle-o"></i> Agregar</a></li>
+            <li><a class="treeview-item" href="../../SolicitudCambio/listar"><i class="icon fa fa-circle-o"></i> Listar</a></li>
+            <li><a class="treeview-item" href="../../SolicitudCambio/create"><i class="icon fa fa-circle-o"></i> Agregar</a></li>
           </ul>
         </li>
 </ul>

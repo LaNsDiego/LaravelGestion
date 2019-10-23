@@ -21,10 +21,18 @@ Route::get('/proyecto/listar/{UsuarioId}', 'ProyectoController@listar');
 Route::get('/proyecto/agregar/{UsuarioId}', 'ProyectoController@agregar');
 Route::post('/proyecto/guardar', 'ProyectoController@guardar');
 
-Route::get('/SolicitudCambio/listar/{UsuarioId}', 'SolicitudCambio@listar');
-Route::get('/SolicitudCambio/agregar/{UsuarioId}', 'SolicitudCambio@agregar');
-Route::get('/SolicitudCambio/atender/{UsuarioId}', 'SolicitudCambio@atender');
-Route::post('/SolicitudCambio/guardar', 'SolicitudCambio@guardar');
-// Route::post('/proyecto/agregar', function(Request $request){
-//     return response()->json(['res'=>$request->all()]);
-// });
+
+///SOLICITUD DE CAMBIO
+Route::get('SolicitudCambio/listar', 'SolicitudCambioController@listar')->name('SolicitudCambio.listar');
+//NUEVO
+Route::get('SolicitudCambio/create', 'SolicitudCambioController@create')->name('SolicitudCambio.create');
+Route::post('SolicitudCambio/store', 'SolicitudCambioController@store')->name('SolicitudCambio.store');
+//EDITAR
+Route::get('SolicitudCambio/editar/{SolicitudId}', 'SolicitudCambioController@edit')->name('SolicitudCambio.edit');
+Route::post('SolicitudCambio/update', 'SolicitudCambioController@update')->name('SolicitudCambio.update');
+//VER
+Route::get('SolicitudCambio/atender/{SolicitudId}', 'SolicitudCambioController@atender')->name('SolicitudCambio.atender');
+//ELIMINAR
+Route::get('SolicitudCambio/{SolicitudId}', 'SolicitudCambioController@delete')->name('SolicitudCambio.delete');
+
+
