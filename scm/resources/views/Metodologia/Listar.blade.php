@@ -22,11 +22,11 @@
           <tbody>
             @foreach($ListaMetodologia as $Metodologia)
                 <tr>
-                    <td class="text-center">{{ $Metodologia->id }}</td>
-                    <td>{{ $Metodologia->codigo }}</td>
-                    <td>{{ $Metodologia->nombre }}</td>
+                    <td class="text-center">{{ $Metodologia->Id }}</td>
+                    <td>{{ $Metodologia->Codigo }}</td>
+                    <td>{{ $Metodologia->Nombre }}</td>
                     <td class="text-center">
-                        <a href="/metodologia/m{{ $Metodologia->id }}" class="btn btn-primary btn-sm text-uppercase">Ver</a>
+                        <a href="/metodologia/m{{ $Metodologia->Id }}" class="btn btn-primary btn-sm text-uppercase">Ver</a>
                         <a href="" class="btn btn-success btn-sm text-uppercase">Editar</a>
                     </td>
                 </tr>

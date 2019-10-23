@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fase extends Model
 {
-    protected $table = 'fase';
+    protected $table = 'metodologia_fase';
     public $timestamps = false;
 
     public function Agregar()

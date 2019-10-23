@@ -2,8 +2,8 @@
 @section('content')
 <div class="app-title">
     <div>
-        <h1>Metodología {{ $Metodologia->nombre }}</h1>
-        <p>{{ $Metodologia->codigo }}</p>
+        <h1>Metodología {{ $Metodologia->Nombre }}</h1>
+        <p>{{ $Metodologia->Codigo }}</p>
     </div>
 </div>
 <div class="row">
@@ -22,10 +22,10 @@
                 <div class="card">
                     <!-- header -->
                     <div class="card-header card-header-mm d-flex align-items-center"> 
-                        <a href="#" data-toggle="collapse" data-target="#Fase{{ $Fase->id }}">{{ $Fase->nombre }}</a>
+                        <a href="#" data-toggle="collapse" data-target="#Fase{{ $Fase->Id }}">{{ $Fase->Nombre }}</a>
                     </div>
                     <!-- body -->
-                    <div id="Fase{{ $Fase->id }}" class="collapse show_x" data-parent="#accordionFase">
+                    <div id="Fase{{ $Fase->Id }}" class="collapse show_x" data-parent="#accordionFase">
                         <div class="card-body">
                             <!-- element -->
                             <div class="element-item">
