@@ -9,18 +9,18 @@ class ElementoConfiguracion extends Model
     protected $table = 'elemento_configuracion';
     public $timestamps = false;
 
-<<<<<<< HEAD
-    public static function Agregar(ElementoConfiguracion $ObjElementoConfiguracion){
-        if($ObjElementoConfiguracion->save()){
-            return $ObjElementoConfiguracion->id;
-=======
-    public function Guardar()
+    public static function Agregar(ElementoConfiguracion $ObjElementoConfiguracion)
     {
-        if($this->save())
-        {
-            return $this->id;
->>>>>>> 60bf1d7fa735e9ddcb77ccd82cac7a61e989044e
+        if ($ObjElementoConfiguracion->save()) {
+            return $ObjElementoConfiguracion->id;
         }
-        return 0;
     }
+//    public function Guardar()
+//    {
+//        if($this->save())
+//        {
+//            return $this->id;
+//        }
+//        return 0;
+//    }
 }
