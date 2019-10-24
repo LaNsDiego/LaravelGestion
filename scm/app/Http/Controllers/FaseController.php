@@ -12,11 +12,11 @@ class FaseController extends Controller
     public function ActAgregar(Request $request)
     {
         $ObjFase = new Fase();
-        $ObjFase->nombre = $request->input('TxtNombre');
-        $ObjFase->metodologia = $request->input('TxtMetodologia');
+        $ObjFase->Nombre = $request->input('TxtNombre');
+        $ObjFase->MetodologiaId = $request->input('TxtMetodologia');
         $ObjFase->Agregar();
         if($ObjFase->id > 0){
-            return redirect()->action('MetodologiaController@Detalle', ['MetodologiaId' => $ObjFase->metodologia]);
+            return redirect()->action('MetodologiaController@Detalle', ['MetodologiaId' => $ObjFase->MetodologiaId]);
         }
     }
 }

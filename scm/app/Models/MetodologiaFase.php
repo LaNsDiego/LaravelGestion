@@ -12,7 +12,12 @@ class MetodologiaFase extends Model
 
     public static function ListarPorMetodologiaId($MetodologiaId)
     {
-        return MetodologiaFase::where('MetodologiaId',$MetodologiaId)->get();
+        $ListadoMetodologiaFase = MetodologiaFase::where('MetodologiaId',$MetodologiaId)->get();
+        foreach ($ListadoMetodologiaFase as $ObjMetodologiaFase){
+            $ObjMetodologiaFase->ListadoElementoConfiguracion = PlantillaElementoConfiguracion::where('FaseId',$ObjMetodologiaFase->Id)->get();
+        }
+
+        return $ListadoMetodologiaFase;
     }
 }
 

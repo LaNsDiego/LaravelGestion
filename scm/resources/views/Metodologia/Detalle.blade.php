@@ -70,7 +70,7 @@
             </div>
             <div class="form-group pt-2">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="TxtMetodologia" value="{{ $Metodologia->id }}">
+                <input type="hidden" name="TxtMetodologia" value="{{ $Metodologia->Id }}">
                 <button type="submit" class="btn btn-primary text-uppercase"><i class="fa fa-check-circle" aria-hidden="true"></i>Crear fase</button>
             </div>
         </form>

@@ -26,10 +26,12 @@ class ProyectoController extends Controller
     {
         $Cronograma = Cronograma::ObtenerPorProyectoId($ProyectoId);
 //        Log:info('CronogramaId '.$Cronograma->Id);
+        $Proyecto = Proyecto::find($ProyectoId);
         return view('proyecto.ver',[
-            'Proyecto' => Proyecto::find($ProyectoId),
+            'Proyecto' => $Proyecto,
             'Cronograma' => $Cronograma,
-            'ListadoFase' => CronogramaFase::where('CronogramaId',$Cronograma->Id)->get()
+            'ListadoFase' => CronogramaFase::where('CronogramaId',$Cronograma->Id)->get(),
+            'Metodologia' => Metodologia::find($Proyecto->MetodologiaId)
         ]);
     }
 
@@ -61,44 +63,46 @@ class ProyectoController extends Controller
             if(Cronograma::Agregar($Cronograma) > 0){
                 $ListadoCronogramaFaseId = $request->input('FasesId');
                 Log::info('Cronograma creado');
-                foreach($ListadoCronogramaFaseId  as $CronogramaFaseId){
-                    Log::info('Fase n° :'.$CronogramaFaseId);
-                    $CronogramaFase = new CronogramaFase();
-                    $CronogramaFase->CronogramaId = $Cronograma->id;
-                    $CronogramaFase->Nombre = $CronogramaFaseId;
-                    if(CronogramaFase::Agregar($CronogramaFase) > 0){
+                if(isset($ListadoCronogramaFaseId)){
+                    foreach($ListadoCronogramaFaseId  as $CronogramaFaseId){
+                        Log::info('Fase n° :'.$CronogramaFaseId);
+                        $CronogramaFase = new CronogramaFase();
+                        $CronogramaFase->CronogramaId = $Cronograma->id;
+                        $CronogramaFase->Nombre = $CronogramaFaseId;
+                        if(CronogramaFase::Agregar($CronogramaFase) > 0){
 
-                        $ListadoElementoId = $request->input($CronogramaFase->Nombre);
-                        Log::info('imprimiendo array  elementos');
-                        Log::info($ListadoElementoId);
-                        foreach( $ListadoElementoId as $ElementoNombre){
-                              Log::info('Elemento n°:'.$ElementoNombre);
-                            $ElementoConfiguracion = new ElementoConfiguracion();
-                            $ElementoConfiguracion->Codigo = "ele".$ElementoNombre;
-                            $ElementoConfiguracion->Nombre = $ElementoNombre;
-                            $ElementoConfiguracion->FaseId = $CronogramaFase->id;
-                            if(ElementoConfiguracion::Agregar($ElementoConfiguracion) > 0){
-                                Log::info('ECS creada con id:'.$ElementoConfiguracion->id);
+                            $ListadoElementoId = $request->input($CronogramaFase->Nombre);
+                            Log::info('imprimiendo array  elementos');
+                            Log::info($ListadoElementoId);
+                            foreach( $ListadoElementoId as $ElementoNombre){
+                                Log::info('Elemento n°:'.$ElementoNombre);
+                                $ElementoConfiguracion = new ElementoConfiguracion();
+                                $ElementoConfiguracion->Codigo = "ele".$ElementoNombre;
+                                $ElementoConfiguracion->Nombre = $ElementoNombre;
+                                $ElementoConfiguracion->FaseId = $CronogramaFase->id;
+                                if(ElementoConfiguracion::Agregar($ElementoConfiguracion) > 0){
+                                    Log::info('ECS creada con id:'.$ElementoConfiguracion->id);
 //                                return redirect()->route('proyecto.listar');
-                            }else{
-////                                return view('proyecto.listar',['ListadoProyecto ' => Proyecto::ListarPorUsuarioId($UsuarioId)]);
-                            }
+                                }else{
+//                                return view('proyecto.listar',['ListadoProyecto ' => Proyecto::ListarPorUsuarioId(1)]);
+//                                    return redirect()->action('ProyectoController@Listar');
+                                }
 //
-                        }
-                    }else{
+                            }
+                        }else{
 ////                        return view('proyecto.listar',['ListadoProyecto ' => Proyecto::ListarPorUsuarioId($UsuarioId)]);
+                        }
                     }
                 }
-                
+
             }else{
 //                return response()->json($Cronograma);
 //                return view('proyecto.listar',['ListadoProyecto ' => Proyecto::ListarPorUsuarioId($UsuarioId)]);
             }
-            
+
         }else{
         }
         return redirect()->route('proyecto.listar');
-
     }
 
     public function doPost(){

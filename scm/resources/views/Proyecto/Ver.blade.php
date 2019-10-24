@@ -53,7 +53,8 @@
     <div class="tile p-0">
         <div class="card">
             <div class="card-header card-header-m">
-                <span>Metodologia :{{$Proyecto->MetodologiaId}}</span>
+{{--                    <span>Metodologia :{{dd($Metodologia)}}</span>--}}
+                <span>Metodologia :{{$Metodologia->Nombre}}</span>
             </div>
         </div>
       <div class="w-100">

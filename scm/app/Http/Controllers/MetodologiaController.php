@@ -22,6 +22,7 @@ class MetodologiaController extends Controller
     public function Detalle($MetodologiaId)
     {
         $ObjMetodologia = Metodologia::find($MetodologiaId);
+//        dd($ObjMetodologia);
         $ObjFase = Fase::where('MetodologiaId', $ObjMetodologia->Id)->get();
         return view('Metodologia.Detalle', ['Metodologia' => $ObjMetodologia, 'ListaFase' => $ObjFase]);
     }

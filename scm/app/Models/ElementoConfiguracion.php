@@ -14,6 +14,7 @@ class ElementoConfiguracion extends Model
         if ($ObjElementoConfiguracion->save()) {
             return $ObjElementoConfiguracion->id;
         }
+        return 0;
     }
 //    public function Guardar()
 //    {
