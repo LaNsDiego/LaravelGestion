@@ -6,15 +6,40 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fase extends Model
 {
-    protected $table = 'metodologia_fase';
+    protected $table = "fase";
+    protected $primaryKey = 'Id';
     public $timestamps = false;
 
-    public function Agregar()
+    public static function Agregar(Fase $ObjFase)
     {
-        if($this->save())
+        if($ObjFase->save())
         {
-            return $this->id;
+            return $ObjFase->Id;
         }
         return 0;
+    }
+
+    public static function Editar(Fase $ObjFase)
+    {
+        if($ObjFase->update())
+        {
+            return $ObjFase->Id;
+        }
+        return 0;
+    }
+
+    public static function Eliminar(Fase $ObjFase)
+    {
+        return $ObjFase->delete();
+    }
+
+    public static function ObtenerPorId($FaseId)
+    {
+        return Fase::find($FaseId);
+    }
+
+    public static function ListarPorMetodologia($MetodologiaId)
+    {
+        return Fase::where('MetodologiaId', $MetodologiaId)->get();
     }
 }

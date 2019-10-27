@@ -17,20 +17,33 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-//Metodologia
+//Metodologia OK
+Route::prefix('metodologia')->group(function () {
+    Route::get('/listar', 'MetodologiaController@Listar');
+    Route::get('/ver/{MetodologiaId}', 'MetodologiaController@Ver');
+    Route::get('/agregar', 'MetodologiaController@FrmAgregar');
+    Route::get('/editar/{MetodologiaId}', 'MetodologiaController@FrmEditar');
+    Route::get('/eliminar/{MetodologiaId}', 'MetodologiaController@ActEliminar');
+    Route::post('/agregar', 'MetodologiaController@ActAgregar');
+    Route::post('/editar', 'MetodologiaController@ActEditar');
+});
 
+//Fase OK
+Route::prefix('fase')->group(function () {
+    Route::get('/editar/{FaseId}', 'FaseController@FrmEditar');
+    Route::get('/eliminar/{FaseId}', 'FaseController@ActEliminar');
+    Route::post('/agregar', 'FaseController@ActAgregar');
+    Route::post('/editar', 'FaseController@ActEditar');
+});
 
+//Elemento de Configuracion OK
+Route::prefix('elemento-configuracion')->group(function () {
+    Route::get('/editar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@FrmEditar');
+    Route::get('/eliminar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@ActEliminar');
+    Route::post('/agregar', 'ElementoConfiguracionController@ActAgregar');
+    Route::post('/editar', 'ElementoConfiguracionController@ActEditar');
+});
 
-Route::get('/metodologia/listar', 'MetodologiaController@Listar');
-Route::get('/metodologia/m{MetodologiaId}', 'MetodologiaController@Detalle');
-Route::get('/metodologia/agregar', 'MetodologiaController@Agregar');
-Route::post('/metodologia/agregar', 'MetodologiaController@ActAgregar');
-
-//Fase
-Route::post('/fase/agregar', 'FaseController@ActAgregar');
-
-//Elemento de Configuracion
-Route::get('/elemento-configuracion/listar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@Listar');
 
 //Proyecto
 Route::get('/proyecto/listar', 'ProyectoController@Listar')->name('proyecto.listar');

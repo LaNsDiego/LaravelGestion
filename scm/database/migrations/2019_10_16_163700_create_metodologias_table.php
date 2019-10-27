@@ -14,14 +14,8 @@ class CreateMetodologiasTable extends Migration
     public function up()
     {
         Schema::create('metodologia', function (Blueprint $table) {
-<<<<<<< HEAD
             $table->increments('Id');
-            $table->string('Nombre');
-=======
-            $table->increments('id');
-            $table->string('codigo');
-            $table->string('nombre');
->>>>>>> 60bf1d7fa735e9ddcb77ccd82cac7a61e989044e
+            $table->string('Nombre', 200);
         });
     }
 

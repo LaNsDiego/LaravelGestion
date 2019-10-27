@@ -10,32 +10,67 @@ use App\Models\ElementoConfiguracion as ElementoConfiguracion;
 
 class MetodologiaController extends Controller
 {
-    public function Listar(){
-        $ObjMetodologia = Metodologia::all();
-        return view('Metodologia.Listar', ['ListaMetodologia' => $ObjMetodologia]);
+    public function Listar()
+    {
+        $ObjMetodologia = Metodologia::Listar();
+        return view('Metodologia.Listar', ['ListadoMetodologia' => $ObjMetodologia]);
     }
 
-    public function Agregar(){
+    public function FrmAgregar()
+    {
         return view('Metodologia.Agregar');
     }
 
-    public function Detalle($MetodologiaId)
+    public function FrmEditar($MetodologiaId)
     {
-        $ObjMetodologia = Metodologia::find($MetodologiaId);
-//        dd($ObjMetodologia);
-        $ObjFase = Fase::where('MetodologiaId', $ObjMetodologia->Id)->get();
-        return view('Metodologia.Detalle', ['Metodologia' => $ObjMetodologia, 'ListaFase' => $ObjFase]);
+        $ObjMetodologia = Metodologia::ObtenerPorId($MetodologiaId);
+        return view('Metodologia.Editar', ['Metodologia' => $ObjMetodologia]);
+    }
+
+    public function Ver($MetodologiaId)
+    {
+        $ObjMetodologia = Metodologia::ObtenerPorId($MetodologiaId);
+        $ObjFase = Fase::ListarPorMetodologia($ObjMetodologia->Id);
+        $ObjElementoConfiguracion = ElementoConfiguracion::Listar();
+        return view('Metodologia.Ver', [
+            'Metodologia' => $ObjMetodologia, 
+            'ListadoFase' => $ObjFase,
+            'ListadoElementoConfiguracion' => $ObjElementoConfiguracion
+        ]);
     }
 
     public function ActAgregar(Request $request)
     {
         $ObjMetodologia = new Metodologia();
-        $ObjMetodologia->codigo = $request->input('TxtCodigo');
-        $ObjMetodologia->nombre = $request->input('TxtNombre');
-        $ObjMetodologia->Agregar();
-        if($ObjMetodologia->id > 0){
+        $ObjMetodologia->Nombre = $request->input('TxtNombre');
+        if(Metodologia::Agregar($ObjMetodologia) > 0)
+        {
             return redirect()->action('MetodologiaController@Listar');
         }
+    }
+
+    public function ActEditar(Request $request)
+    {
+        $ObjMetodologia = Metodologia::ObtenerPorId($request->TxtId);
+        $ObjMetodologia->Nombre = $request->input('TxtNombre');
+        if(Metodologia::Editar($ObjMetodologia) > 0)
+        {
+            return redirect()->action('MetodologiaController@Listar');
+        }
+    }
+
+    public function ActEliminar(Request $request)
+    {
+        try
+        {
+            $ObjMetodologia = Metodologia::ObtenerPorId($request->MetodologiaId);
+            Metodologia::Eliminar($ObjMetodologia);
+            return redirect()->action('MetodologiaController@Listar');
+        } 
+        catch (\Illuminate\Database\QueryException $e)
+        {
+            return redirect()->back();
+        } 
     }
 }
 

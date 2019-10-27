@@ -1,6 +1,5 @@
 @extends('layouts.default')
 @section('content')
-
 <!-- title -->
 <div class="app-title">
     <h1>Listado de Metodologías</h1>
@@ -14,20 +13,19 @@
           <thead>
             <tr>
               <th class="text-center" width="25px">#</th>
-              <th  width="100px">CÓDIGO</th>
               <th>NOMBRE</th>
-              <th class="text-center" width="150px">Acciones</th>
+              <th class="text-center" width="250px">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($ListaMetodologia as $Metodologia)
+            @foreach($ListadoMetodologia as $Key => $Metodologia)
                 <tr>
-                    <td class="text-center">{{ $Metodologia->Id }}</td>
-                    <td>{{ $Metodologia->Codigo }}</td>
+                    <td class="text-center">{{ $Key + 1 }}</td>
                     <td>{{ $Metodologia->Nombre }}</td>
                     <td class="text-center">
-                        <a href="/metodologia/m{{ $Metodologia->Id }}" class="btn btn-primary btn-sm text-uppercase">Ver</a>
-                        <a href="" class="btn btn-success btn-sm text-uppercase">Editar</a>
+                        <a href="/metodologia/ver/{{ $Metodologia->Id }}" class="btn btn-primary btn-sm text-uppercase">Ver</a>
+                        <a href="/metodologia/editar/{{ $Metodologia->Id }}" class="btn btn-success btn-sm text-uppercase">Editar</a>
+                        <a href="/metodologia/eliminar/{{ $Metodologia->Id }}" class="btn btn-danger btn-sm text-uppercase" onclick="return confirm('¿Estás seguro de que deseas eliminar este archivo?');">Eliminar</a>
                     </td>
                 </tr>
             @endforeach

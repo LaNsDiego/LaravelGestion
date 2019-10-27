@@ -3,7 +3,6 @@
 <div class="app-title">
     <div>
         <h1>Metodología {{ $Metodologia->Nombre }}</h1>
-        <p>{{ $Metodologia->Codigo }}</p>
     </div>
 </div>
 <div class="row">
@@ -12,35 +11,46 @@
             <div class="card">
                 <div class="card-header card-header-m d-flex align-items-center">
                     <span>Fases de la metodología</span>
-                    <a href="#" data-toggle="modal" data-target="#ModalAgregarFase" class="btn btn-sm btn-primary ml-auto"><i class="fa fa-plus" aria-hidden="true"></i>Agregar</a>
+                    <div class="ml-auto d-flex">
+                      <a href="#" data-toggle="modal" data-target="#ModalAgregarFase" class="btn btn-sm btn-primary text-uppercase mr-1"><i class="fa fa-plus" aria-hidden="true"></i>Fase</a>
+                      <a href="#" data-toggle="modal" data-target="#ModalAgregarElementoConfiguracion" class="btn btn-sm btn-secondary text-uppercase"><i class="fa fa-plus" aria-hidden="true"></i>ECS</a>
+                    </div>
                 </div>
             </div>
             <!-- accordion -->
             <div class="accordion" id="accordionFase">
-                @foreach($ListaFase as $Fase)
+                @foreach($ListadoFase as $Fase)
                 <!-- item -->
                 <div class="card">
                     <!-- header -->
                     <div class="card-header card-header-mm d-flex align-items-center"> 
                         <a href="#" data-toggle="collapse" data-target="#Fase{{ $Fase->Id }}">{{ $Fase->Nombre }}</a>
+                        <div class="ml-auto">
+                          <a href="/fase/editar/{{ $Fase->Id }}" class="btn btn-sm btn-success"><i class="fa fa-pencil m-0" aria-hidden="true"></i></a>
+                          <a href="/fase/eliminar/{{ $Fase->Id }}?Metodologia={{ $Metodologia->Id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este archivo?');"><i class="fa fa-trash m-0" aria-hidden="true"></i></a>
+                        </div>
                     </div>
                     <!-- body -->
                     <div id="Fase{{ $Fase->Id }}" class="collapse show_x" data-parent="#accordionFase">
                         <div class="card-body">
+                            @foreach($ListadoElementoConfiguracion as $ECS)
+                            @if($ECS->FaseId == $Fase->Id)
                             <!-- element -->
                             <div class="element-item">
                                 <div class="element-wrapper d-sm-flex align-items-center">
                                     <div class="element-header py-2 py-lg-0">
-                                        <h4 class="element-header__title">Elemento de configuracion 1</h4>
-                                        <span class="element-header__code">ECS-1</span>
+                                        <h4 class="element-header__title">{{ $ECS->Nombre }}</h4>
+                                        <span class="element-header__code">{{ $ECS->Codigo }}</span>
                                     </div>
                                     <div class="element-control ml-auto">
-                                        <a href="" class="btn btn-sm btn-success"><i class="fa fa-pencil" aria-hidden="true"></i>Editar</a>
-                                        <a href="" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>Eliminar</a>
+                                        <a href="/elemento-configuracion/editar/{{ $ECS->Id }}" class="btn btn-sm btn-info"><i class="fa fa-pencil m-0" aria-hidden="true"></i></a>
+                                        <a href="/elemento-configuracion/eliminar/{{ $ECS->Id }}?Metodologia={{ $Metodologia->Id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este archivo?');"><i class="fa fa-trash m-0" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
                             <!-- element -->
+                            @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -70,7 +80,7 @@
             </div>
             <div class="form-group pt-2">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="TxtMetodologia" value="{{ $Metodologia->Id }}">
+                <input type="hidden" name="TxtMetodologia" value="{{ $Metodologia->Id }}" required>
                 <button type="submit" class="btn btn-primary text-uppercase"><i class="fa fa-check-circle" aria-hidden="true"></i>Crear fase</button>
             </div>
         </form>
@@ -92,17 +102,28 @@
       </div>
       <div class="modal-body">
         <!-- form -->
-        <form>
+        <form action="/elemento-configuracion/agregar" method="POST">
+            <div class="form-group">
+                <label class="control-label">Fase</label>
+                <select name="TxtFase" class="form-control" required>
+                  <option value="">Seleccione la fase a que pertenece</option>
+                  @foreach($ListadoFase as $Fase)
+                  <option value="{{ $Fase->Id }}">{{ $Fase->Nombre }}</option>
+                  @endforeach
+                </select>
+            </div>
             <div class="form-group">
                 <label class="control-label">Código</label>
-                <input type="text" name="TxtCodigo" class="form-control">
+                <input type="text" name="TxtCodigo" class="form-control" required>
             </div>
             <div class="form-group">
                 <label class="control-label">Nombre</label>
-                <input type="text" name="TxtNombre" class="form-control">
+                <input type="text" name="TxtNombre" class="form-control" required>
             </div>
             <div class="form-group pt-2">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle" aria-hidden="true"></i>Crear elemento</button>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="TxtMetodologia" value="{{ $Metodologia->Id }}" required>
+                <button type="submit" class="btn btn-primary text-uppercase"><i class="fa fa-check-circle" aria-hidden="true"></i>Crear elemento</button>
             </div>
         </form>
         <!-- form -->

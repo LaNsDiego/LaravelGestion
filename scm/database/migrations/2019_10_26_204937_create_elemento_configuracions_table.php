@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMetodologiaFasesTable extends Migration
+class CreateElementoConfiguracionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateMetodologiaFasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('metodologia_fase', function (Blueprint $table) {
+        Schema::create('elemento_configuracion', function (Blueprint $table) {
             $table->increments('Id');
-            $table->string('Nombre');
-            $table->integer('MetodologiaId');
+            $table->string('Codigo', 20);
+            $table->string('Nombre', 200);
+            $table->integer('FaseId')->unsigned();
+            $table->foreign('FaseId')->references('Id')->on('fase');
         });
     }
 
@@ -27,6 +29,6 @@ class CreateMetodologiaFasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metodologia_fase');
+        Schema::dropIfExists('elemento_configuracion');
     }
 }
