@@ -9,8 +9,8 @@
 <div class="row">
     <div class="col-md-12">
         <form action="/SolicitudCambio/guardar" method="post">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" value="{{$solicitudcambio->id}}" name="id" id="id">
+        <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+        <input type="hidden" value="{{$Asolicitudcambio->Id}}" name="Id" id="Id">
             <div class="tile">
                 <h3 class="tile-title">Datos del Proyecto</h3>
                 <div class="tile-body">     
@@ -19,14 +19,14 @@
                                 <label class="control-label">Proyecto </label>
                                 <select class="form-control" name="Proyecto_Id" id="Proyecto_Id">
                                         @foreach($AProyecto as $be)
-                                        <option value="{{ $be->id }}" {{ $be->id == $solicitudcambio->proyectoid ? 'selected':'' }}>{{ $be->nombre }}</option>
+                                        <option value="{{ $be->Id }}" {{ $be->Id == $Asolicitudcambio->Proyectoid ? 'selected':'' }}>{{ $be->Nombre }}</option>
                                         @endforeach
     
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <label class="control-label">Fecha </label>
-                            <input type="date" value="{{ $solicitudcambio->fecha }}" class="form-control" id="Fecha" name="Fecha">
+                            <input type="date" value="{{ $Asolicitudcambio->Fecha }}" class="form-control" id="Fecha" name="Fecha">
                             </div>
                             
                         </div>
@@ -40,17 +40,17 @@
                     <div class="form-group row">
                         <div class="col-md-10">
                             <label class="control-label">Objetivo</label>
-                            <input type="text" value="{{ $solicitudcambio->objetivo }}" class="form-control" id="Objetivo" name="Objetivo">
+                            <input type="text" value="{{ $Asolicitudcambio->Objetivo }}" class="form-control" id="Objetivo" name="Objetivo">
                         </div>
                         <div class="col-md-2">
                             <label for="control-label">Solicitante</label>
-                            <input type="text" value="{{ $solicitudcambio->Usuario_Solicitante }}" class="form-control" readonly id="Solicitante" name="Solicitante">
+                            <input type="text" value="{{ $Asolicitudcambio->Usuario_Solicitante }}" class="form-control" readonly id="Solicitante" name="Solicitante">
                         </div>
                         
                     </div>
                     <div class="form-group">
                         <label class="control-label">Descripción</label>
-                        <textarea class="form-control" name="descripcion" rows="4">{{ $solicitudcambio->descripcion }}</textarea>
+                        <textarea class="form-control" name="descripcion" rows="4">{{ $Asolicitudcambio->Descripcion }}</textarea>
                     </div>
 
                     <div class="form-group row">
@@ -58,16 +58,16 @@
                         <div class= "col-md-3">
                             <label class="control-label">Estado</label>
                             <select name="Estado" id="Estado" class="form-control">
-                                        <option {{ $solicitudcambio->estado == 1 ? 'selected':'' }} value="1">Pendiente</option>
-                                        <option {{ $solicitudcambio->estado == 2 ? 'selected':'' }} value="2">Aprobado</option>
-                                        <option {{ $solicitudcambio->estado == 3 ? 'selected':'' }} value="3">Rechazado</option>
+                                        <option {{ $Asolicitudcambio->Estado == 1 ? 'selected':'' }} value="1">Pendiente</option>
+                                        <option {{ $Asolicitudcambio->Estado == 2 ? 'selected':'' }} value="2">Aprobado</option>
+                                        <option {{ $Asolicitudcambio->Estado == 3 ? 'selected':'' }} value="3">Rechazado</option>
                             </select>
                         </div>
                         <div class="col-md-6"></div>
                         <div class= "col-md-3">
                             <label class="control-label">.</label>
                             
-                            <button type="button"  data-toggle="modal" data-target="#exampleModal" class="btn btn-info form-control">GENERAR INFORME</button>
+                            <button type="button"  data-toggle="modal" onclick="Fnc_ModalInforme()" class="btn btn-info form-control">GENERAR INFORME</button>
                         </div>
 
                         
@@ -126,38 +126,34 @@
                
                 <div class="col-md-3">
                     <label class="control-label">Fases </label>
-                    <select name="Fase" id="Fase" class="form-control">
-                        <option value="1">Fase 1</option>
-                        <option value="1">Fase 2</option>
-                        <option value="1">Fase 3</option>
-                        <option value="1">Fase 4</option>
+                    <select name="FaseIdM" id="FaseIdM" onchange="Fnc_ECS()" class="form-control">
+                            @foreach($AFase as $be)
+                            <option value="{{ $be->Id }}" >{{ $be->Nombre }}</option>
+                            @endforeach
                     </select>
                 </div>
 
                 <div class="col-md-3">
                     <label class="control-label">ESC </label>
-                    <select name="ESC" id="ESC" class="form-control">
-                        <option value="1">Diagrama de caso de uso</option>
-                        <option value="1">Fase 2</option>
-                        <option value="1">Fase 3</option>
-                        <option value="1">Fase 4</option>
+                    <select name="ESCIdM" id="ESCIdM" class="form-control">
+                       
                     </select>
                 </div>
 
                 <div class="col-md-3">
                     <label class="control-label">Tiempo </label>
-                    <input type="number" class="form-control" id="Tiempo" name="Tiempo">
+                    <input type="number" class="form-control" id="TiempoM" name="TiempoM">
                 </div>
 
                 <div class="col-md-3">
                     <label class="control-label">Costo </label>
-                    <input type="number" step="any" class="form-control" id="Tiempo" name="Tiempo">
+                    <input type="number" step="any" class="form-control" id="CostoM" name="CostoM">
                 </div>
 
 
                 <div class="col-md-12">
                     <label class="control-label">Descripcion </label>
-                    <textarea name="Descripcion" id="Descripcion" cols="30" rows="3" class="form-control"></textarea>
+                    <textarea name="DescripcionM" id="DescripcionM" cols="30" rows="3" class="form-control"></textarea>
                 </div>
 
              
@@ -165,7 +161,7 @@
                 <div class="col-md-9"></div>
                 <div class="col-md-3">
                     <label class="control-label">. </label>
-                    <input type="button" class="form-control btn btn-info" id="" name="" value="AGREGAR">
+                    <input type="button" onclick="AddDetalleOrden();" class="form-control btn btn-info" id="" name="" value="AGREGAR">
                 </div>
 
 
@@ -173,7 +169,7 @@
                 <br>
                 </div>
                 
-                <div class="table-responsive">
+                <div class="table-responsive" id="BlockDetalleInforme">
                     <table class="table">
                         <thead>
                             <tr>
@@ -234,6 +230,76 @@
 
 
 <script>
+    function Fnc_ModalInforme(){
+        $('#exampleModal').modal('show');
+        Fnc_ECS();
+    }
+    function Fnc_ECS(){
+
+        var FaseId = $('#FaseIdM').val();
+        var _token = $('#_token').val();
+        var parametros = {
+                    "FaseId" : FaseId,
+                    "_token" : _token, 
+                };
+
+        $.ajax({
+
+            data:  parametros,
+            url:   '../../SolicitudCambio/ViewESC',
+            type:  'POST',
+            beforeSend: function () {
+            
+            },
+            success:  function (data) {
+                // console.log(data);
+                $('#ESCIdM').html(data);
+            }
+        });
+
+    }
+
+
+    function AddDetalleOrden(){
+
+        var FaseId = $('#FaseIdM').val();
+        var ESCId = $('#ESCIdM').val();
+        var Tiempo = $('#TiempoM').val();
+        var Costo = $('#CostoM').val();
+        var Descripcion = $('#DescripcionM').val();
+        var _token = $('#_token').val();
+        
+        var MM_search = "AddDetelleOrden";
+
+        var parametros = {
+                            "FaseId" : FaseId,
+                            "ESCId" : ESCId,
+                            "Tiempo" : Tiempo,
+                            "Costo" : Costo,
+                            "Descripcion" : Descripcion,
+                            "MM_search" : MM_search, 
+                            "_token" : _token, 
+                        };
+
+        $.ajax({
+
+                data:  parametros,
+                url:   '../../SolicitudCambio/detalleinforme',
+                type:  'POST',
+                beforeSend: function () {
+                
+                },
+                success:  function (data) {
+                    // console.log(data);
+                    $('#BlockDetalleInforme').html(data);
+                }
+            });
+    
+    }
+
     
 </script>
+
+
+
 @stop

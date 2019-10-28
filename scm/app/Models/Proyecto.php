@@ -25,6 +25,10 @@ class Proyecto extends Model
         return Proyecto::where('UsuarioJefeId',$UsuarioId)->get();
     }
 
+    public static function ListarPorParticipanteId($UsuarioId){
+        return Proyecto::where('Estado',1)->get();
+    }
+
 
     public function ListarMetodologiaFase($MetodologiaId){
         return MetodologiaFase::where('MetodologiaId',$MetodologiaId)->get();

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class Fase extends Model
 {
     protected $table = "fase";
@@ -41,5 +41,15 @@ class Fase extends Model
     public static function ListarPorMetodologia($MetodologiaId)
     {
         return Fase::where('MetodologiaId', $MetodologiaId)->get();
+    }
+    public static function ListarPorProyecto($ProyectoId)
+    {   
+        return  DB::table('fase')
+                ->join('metodologia', 'fase.MetodologiaId', '=', 'metodologia.Id')
+                ->join('proyecto', 'metodologia.Id', '=', 'proyecto.MetodologiaId')
+                ->select('fase.*', 'metodologia.Nombre as Nombre_Metodologia')
+                ->where('proyecto.Id', $ProyectoId)
+                ->orderBy('fase.Id','DESC')
+                ->get();
     }
 }

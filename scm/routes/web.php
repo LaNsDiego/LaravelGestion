@@ -57,18 +57,26 @@ Route::get('/metodologia-fase/listar/{MetodologiaId}', 'MetodologiaFaseControlle
 
 
 ///SOLICITUD DE CAMBIO
-Route::get('SolicitudCambio/listar', 'SolicitudCambioController@listar')->name('SolicitudCambio.listar');
+Route::get('SolicitudCambio/listar', 'SolicitudCambioController@FrmListar')->name('SolicitudCambio.listar');
 //NUEVO
-Route::get('SolicitudCambio/create', 'SolicitudCambioController@create')->name('SolicitudCambio.create');
-Route::post('SolicitudCambio/store', 'SolicitudCambioController@store')->name('SolicitudCambio.store');
+Route::get('SolicitudCambio/create', 'SolicitudCambioController@FrmAgregar')->name('SolicitudCambio.create');
+Route::post('SolicitudCambio/store', 'SolicitudCambioController@ActAgregar')->name('SolicitudCambio.store');
 //EDITAR
-Route::get('SolicitudCambio/editar/{SolicitudId}', 'SolicitudCambioController@edit')->name('SolicitudCambio.edit');
-Route::post('SolicitudCambio/update', 'SolicitudCambioController@update')->name('SolicitudCambio.update');
+Route::get('SolicitudCambio/edit/{SolicitudId}', 'SolicitudCambioController@FrmEditar')->name('SolicitudCambio.edit');
+Route::post('SolicitudCambio/update', 'SolicitudCambioController@ActEditar')->name('SolicitudCambio.update');
 //VER
-Route::get('SolicitudCambio/atender/{SolicitudId}', 'SolicitudCambioController@atender')->name('SolicitudCambio.atender');
+Route::get('SolicitudCambio/atender/{SolicitudId}', 'SolicitudCambioController@FrmAtender')->name('SolicitudCambio.atender');
 //ELIMINAR
 Route::get('SolicitudCambio/{SolicitudId}', 'SolicitudCambioController@delete')->name('SolicitudCambio.delete');
 
-Route::get('proyecto/doPost','ProyectoController@doPost');
+Route::post('SolicitudCambio/detalleinforme', 'SolicitudCambioController@AccDetalleInforme')->name('detalleinforme.detalleinforme');
+Route::get('SolicitudCambio/ViewDetalleInforme', 'SolicitudCambioController@ViewDetalleInforme')->name('SolicitudCambio.ViewDetalleInforme');
+Route::post('SolicitudCambio/ViewDetalleInforme', 'SolicitudCambioController@ViewDetalleInforme')->name('SolicitudCambio.ViewDetalleInforme');
+
+Route::post('SolicitudCambio/ViewESC', 'SolicitudCambioController@ViewESC')->name('SolicitudCambio.ViewESC');
+
+
+Route::post('ajaxRequest', 'SolicitudCambioController@ajaxRequestPost');
+
 
 ?>

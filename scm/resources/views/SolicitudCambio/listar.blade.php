@@ -24,17 +24,17 @@
           </thead>
           <tbody>
 
-                @foreach($solicitudcambio as $Asolicitudcambio)
+                @foreach($ASolicitudCambio as $solicitudcambio)
       
                   <tr>
                       <td class="text-center">1</td>
-                      <td class="text-left">{{ $Asolicitudcambio->Nombre_Proyecto }}</td>
-                      <td class="text-left">{{ $Asolicitudcambio->objetivo }}</td>
-                      <td class="text-center">{{ $Asolicitudcambio->estado == 1 ? 'Pendiente':'Realizado' }}</td>
-                      <td class="text-center">{{ $Asolicitudcambio->fecha }}</td>
+                      <td class="text-left">{{ $solicitudcambio->Nombre_Proyecto }}</td>
+                      <td class="text-left">{{ $solicitudcambio->Objetivo }}</td>
+                      <td class="text-center">{{ $solicitudcambio->Estado == 1 ? 'Pendiente':'Realizado' }}</td>
+                      <td class="text-center">{{ $solicitudcambio->Fecha }}</td>
                       <td>
-                          <a href="../../SolicitudCambio/atender/{{$Asolicitudcambio->id}}" class="btn btn-primary btn-sm"><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
-                          <a href="./../SolicitudCambio/editar/{{$Asolicitudcambio->id}}" class="btn btn-primary btn-sm"><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
+                          <a href="../../SolicitudCambio/atender/{{$solicitudcambio->Id}}" class="btn btn-primary btn-sm"><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
+                          <a href="./../SolicitudCambio/edit/{{$solicitudcambio->Id}}" class="btn btn-primary btn-sm"><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
                           
                       </td>
                   </tr>
