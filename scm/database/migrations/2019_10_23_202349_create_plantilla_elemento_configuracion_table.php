@@ -13,11 +13,11 @@ class CreatePlantillaElementoConfiguracionTable extends Migration
      */
     public function up()
     {
-        Schema::create('plantilla_elemento_configuracion', function (Blueprint $table) {
+        Schema::create('cronograma_elemento_configuracion', function (Blueprint $table) {
             $table->increments('Id');
             $table->string('Nombre');
             $table->string('Codigo');
-            $table->integer('FaseId');
+            $table->integer('CronogramaFaseId');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatePlantillaElementoConfiguracionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plantilla_elemento_configuracion');
+        Schema::dropIfExists('cronograma_elemento_configuracion');
     }
 }

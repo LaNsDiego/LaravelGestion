@@ -53,7 +53,7 @@ Route::post('/proyecto/agregar', 'ProyectoController@ActAgregar');
 
 
 //Plantilla Fase
-Route::get('/metodologia-fase/listar/{MetodologiaId}', 'MetodologiaFaseController@ListarPorMetodologiaId')->name('metodologia_fase.listar');
+Route::get('/metodologia-fase/listar/{MetodologiaId}', 'CronogramaFaseController@ListarPorMetodologiaId')->name('metodologia_fase.listar');
 
 
 ///SOLICITUD DE CAMBIO

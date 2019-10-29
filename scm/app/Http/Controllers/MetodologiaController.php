@@ -70,7 +70,7 @@ class MetodologiaController extends Controller
         catch (\Illuminate\Database\QueryException $e)
         {
             return redirect()->back();
-        } 
+        }
     }
 }
 

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Cronograma;
 use App\Models\CronogramaFase;
 use App\Models\ElementoConfiguracion;
 use App\Models\Metodologia;
-use App\Models\MetodologiaFase;
 use Illuminate\Http\Request;
 use App\Models\Proyecto as Proyecto;
 use Illuminate\Support\Facades\Log;
@@ -54,13 +52,13 @@ class ProyectoController extends Controller
         $Proyecto->Descripcion = $request->input('Descripcion');
         $Proyecto->Estado = 'En Progreso';
         $UsuarioId = $Proyecto->UsuarioJefeId;
-        if(Proyecto::Agregar($Proyecto) > 0){
+        if(Proyecto::Agregar($Proyecto) > 0){ //PROYECTO
             $Cronograma = new Cronograma();
             $Cronograma->ProyectoId= $Proyecto->id;
             $Cronograma->FechaInicio= $request->input('FechaInicio');
             $Cronograma->FechaTermino= $request->input('FechaTermino');
 
-            if(Cronograma::Agregar($Cronograma) > 0){
+            if(Cronograma::Agregar($Cronograma) > 0){ //CRONOGRAMA
                 $ListadoCronogramaFaseId = $request->input('FasesId');
                 Log::info('Cronograma creado');
                 if(isset($ListadoCronogramaFaseId)){
@@ -69,7 +67,7 @@ class ProyectoController extends Controller
                         $CronogramaFase = new CronogramaFase();
                         $CronogramaFase->CronogramaId = $Cronograma->id;
                         $CronogramaFase->Nombre = $CronogramaFaseId;
-                        if(CronogramaFase::Agregar($CronogramaFase) > 0){
+                        if(CronogramaFase::Agregar($CronogramaFase) > 0){//CRONOGRAMA FASE
 
                             $ListadoElementoId = $request->input($CronogramaFase->Nombre);
                             Log::info('imprimiendo array  elementos');
@@ -80,7 +78,7 @@ class ProyectoController extends Controller
                                 $ElementoConfiguracion->Codigo = "ele".$ElementoNombre;
                                 $ElementoConfiguracion->Nombre = $ElementoNombre;
                                 $ElementoConfiguracion->FaseId = $CronogramaFase->id;
-                                if(ElementoConfiguracion::Agregar($ElementoConfiguracion) > 0){
+                                if(CronogramaElementoConfiguracion::Agregar($ElementoConfiguracion) > 0){ // CRONOGRAMA ELEMENTO CONFIGURACION
                                     Log::info('ECS creada con id:'.$ElementoConfiguracion->id);
 //                                return redirect()->route('proyecto.listar');
                                 }else{
@@ -105,9 +103,6 @@ class ProyectoController extends Controller
         return redirect()->route('proyecto.listar');
     }
 
-    public function doPost(){
-        $ObjProyecto = Proyecto::find(1);
-        return response()->json($ObjProyecto);
-    }
 }
+
 ?>

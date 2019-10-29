@@ -75,7 +75,7 @@
     let d = document;
     let ListadoFase = [];
     let onChangeMetodologia = (MetodologiaId)=>{
-        let url = "{{action('MetodologiaFaseController@ListarPorMetodologiaId',['MetodologiaId' => ''])}}/"+MetodologiaId;
+        let url = "{{action('CronogramaFaseController@ListarPorMetodologiaId',['MetodologiaId' => ''])}}/"+MetodologiaId;
         let contenedor_componente = d.getElementById('contenedor_tabs');
         console.log(url)
         fetch(url)
