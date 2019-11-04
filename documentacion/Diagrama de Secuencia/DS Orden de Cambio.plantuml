@@ -1,0 +1,51 @@
+@startuml
+hide footbox
+
+actor JefeProyecto
+boundary OrdenCambio.listar
+boundary OrdenCambio.agregar
+control OrdenCambioController
+entity OrdenCambio
+entity OrdenCambioDetalle
+entity SolicitudCambio
+entity CronogramaFase
+entity CronogramaElementoConfiguracion
+entity MiembroProyecto
+
+
+JefeProyecto -> OrdenCambio.listar : Selecciona opcion nueva orden de cambio
+OrdenCambio.listar ->  OrdenCambioController : Redireccionar al controlador
+OrdenCambioController ->  OrdenCambioController : Frmagregar()
+OrdenCambioController -> SolicitudCambio  : listar solicitudes
+SolicitudCambio -> SolicitudCambio  : ListarAceptadas(int $ParticipanteId)
+SolicitudCambio -> OrdenCambioController : ArrayList<SolicitudCambio> $ASolicitudCambio
+
+OrdenCambioController -> CronogramaFase  : listar cronograma fase
+CronogramaFase -> CronogramaFase  : ListarFasePorProyecto(int $ProyectoId)
+CronogramaFase -> OrdenCambioController : ArrayList<CronogramaFase> $ACronogramaFase
+
+OrdenCambioController -> CronogramaElementoConfiguracion  : ListarECSPorFase(int $FaseCronogramaId)
+CronogramaElementoConfiguracion -> OrdenCambioController : ArrayList<ListarECSPorFase> $AListarECSPorFase
+
+
+OrdenCambioController -> MiembroProyecto  : listar miembros
+MiembroProyecto -> MiembroProyecto  : ListarMiembrosPorProyectos(int $ProyectoId)
+MiembroProyecto -> OrdenCambioController : ArrayList<MiembroProyecto> $AMiembroProyecto
+
+OrdenCambioController -> OrdenCambio.agregar : View('OrdenCambio.agregar', $ASolicitudCambio)
+
+OrdenCambio.agregar -> JefeProyecto : Muestra Formulario
+JefeProyecto -> OrdenCambio.agregar : ingresa datos
+OrdenCambio.agregar -> OrdenCambioController : enviar datos
+OrdenCambioController -> OrdenCambioController : ActAgregar(Request $request)
+
+OrdenCambioController -> OrdenCambio : Guardar Orden de cambio
+OrdenCambio -> OrdenCambio : Agregar(OrdenCambio $obj)
+OrdenCambio -> OrdenCambioController : int $id
+
+OrdenCambioController -> OrdenCambioDetalle : guarde detalle 
+OrdenCambioDetalle -> OrdenCambioDetalle : Agregar(OrdenCambio $obj)
+OrdenCambioDetalle -> OrdenCambioController : int $id
+
+OrdenCambioController -> OrdenCambio.agregar : redirect('OrdenCambio.agregar');
+@enduml

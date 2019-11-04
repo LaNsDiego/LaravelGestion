@@ -1,0 +1,30 @@
+@startuml
+hide footbox
+
+actor JefeProyecto
+boundary SolicitudCambio.listar
+boundary SolicitudCambio.atender
+control SolicitudCambioController
+entity SolicitudCambio
+entity InformeCambio
+entity InformeCambioDetalle
+
+JefeProyecto -> SolicitudCambio.listar : Selecciona Solicitud 
+SolicitudCambio.listar -> SolicitudCambioController : Redireccionar al controlador
+SolicitudCambioController ->  SolicitudCambioController : FrmAtender()
+SolicitudCambioController -> SolicitudCambio : Solicitar solicitud de cambio por id
+SolicitudCambio -> SolicitudCambio : ObtenerPorId(int $SolicitudId)
+SolicitudCambio -> SolicitudCambioController : SolicitudCambio $ASolicitudCambio
+SolicitudCambioController -> SolicitudCambio.atender : View('SolicitudCambio.atender', $ASolicitudCambio)
+SolicitudCambio.atender -> JefeProyecto : Muestra Formulario
+JefeProyecto -> SolicitudCambio.atender : ingresa datos
+SolicitudCambio.atender -> SolicitudCambioController : enviar datos
+SolicitudCambioController -> SolicitudCambioController : ActAgregar(Request $request)
+SolicitudCambioController -> InformeCambio : Guardar informe de cambio
+InformeCambio -> InformeCambio : Agregar(InformeCambio $obj)
+InformeCambio -> SolicitudCambioController : int $id
+SolicitudCambioController -> InformeCambioDetalle : Guardar Detalle de informe cambio
+InformeCambioDetalle -> InformeCambioDetalle : Agregar(InformeCambio $obj)
+InformeCambioDetalle -> SolicitudCambioController : int $id
+SolicitudCambioController -> SolicitudCambio.atender : redirect('SolicitudCambio.atender');
+@enduml

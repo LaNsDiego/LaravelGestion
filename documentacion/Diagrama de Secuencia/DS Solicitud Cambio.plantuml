@@ -1,0 +1,28 @@
+@startuml
+hide footbox
+
+actor Solicitante
+boundary SolicitudCambio.listar
+boundary SolicitudCambio.agregar
+control SolicitudCambioController
+entity SolicitudCambio
+entity Proyecto
+
+
+Solicitante -> SolicitudCambio.listar : Seleccionar nueva Solicitud
+SolicitudCambio.listar -> SolicitudCambioController : Redireccionar al controlador
+SolicitudCambioController ->  SolicitudCambioController : FrmAgregar()
+SolicitudCambioController -> Proyecto : Sollicitar proyectos por id solicitante
+Proyecto -> Proyecto : ListarProyectos(int UsuarioId)
+Proyecto -> SolicitudCambioController : ArrayList<Proyecto> AProyecto
+SolicitudCambioController -> SolicitudCambio.agregar : View('SolicitudCambio.agregar', AProyecto)
+SolicitudCambio.agregar -> Solicitante : Muestra Formulario
+Solicitante -> SolicitudCambio.agregar : ingresar datos
+SolicitudCambio.agregar -> SolicitudCambioController : enviar datos
+SolicitudCambioController -> SolicitudCambioController : ActAgregar(Request $request)
+SolicitudCambioController -> SolicitudCambio : enviar objeto para guardar
+SolicitudCambio -> SolicitudCambio : Agregar(SolicitudCambio $obj)
+SolicitudCambio -> SolicitudCambioController : int id
+
+SolicitudCambioController -> SolicitudCambio.agregar : redirect('SolicitudCambio.agregar');
+@enduml
