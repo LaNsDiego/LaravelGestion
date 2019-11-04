@@ -70,6 +70,10 @@ package "Vistas"{
         +MiembroJefeId
         +Estado:string  
         +ObtenerPorId(int:SolicitudCambioIdd)
+        +ListarSolicitudes(int:UsuarioId)
+        +Guardar()
+        +Editar()
+        
     }
 
 
@@ -80,6 +84,9 @@ package "Vistas"{
         +Tiempo
         +CostoEconomico
         +ImpactoProblema
+        +ListarInforme()
+        +Guardar()
+        +Editar()
     }
 
     class DetalleInforme {
@@ -88,6 +95,9 @@ package "Vistas"{
         +CronogramaElementoConfiguracionId
         +Tiempo
         +Costo
+        +Guardar()
+        +ListarDetalleInformePorSolicitud(int Id_Solcitud)
+        +Eliminar()
     }
 
 
@@ -101,6 +111,10 @@ package "Vistas"{
         +FechaInicio
         +FechaTermino
         +Descripcion
+        +Guardar()
+        +Editar()
+        +ObtenerPorId()
+        
     }
 
 
@@ -111,6 +125,9 @@ package "Vistas"{
         +MiembroResponsableId
         +FechaInicio
         +FechaTermino
+        +Guardar()
+        +ListarDetalleCambioPorOrden(int Id_Cambio)
+        +Eliminar()
     }
 
     class TareaECS{
