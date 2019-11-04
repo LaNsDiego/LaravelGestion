@@ -230,18 +230,22 @@ package Controller{
 
 
     class SolicitudCambioController{
-        +FrmAgregar()
-        ' +FrmEditar(int:SolicitudCambio)
+        +FrmAgregar(int:UsuarioId)
+        +FrmEditar(int:SolicitudCambio)
+        +FrmListar(int:UsuarioId)
+        +FrmAtender(int:UsuarioId)
     }
 
-    class InformeCambioController{
-        +FrmAgregar(int:$SolicitudCambioId)
-        +ActAgregarInforme(InformeCambio $ObjInformeCambio)
-    }
+    ' class InformeCambioController{
+    '     +FrmAgregar(int:$SolicitudCambioId)
+    '     +ActAgregarInforme(InformeCambio $ObjInformeCambio)
+    ' }
 
 
     class OrdenCambioController{
-        +FrmAgregar(int:$SolicitudCambioId)
+        +FrmAgregar(int:$UsuarioId)
+        +FrmListar(int:$UsuarioId)
+        +FrmEditar(int:$UsuarioId)
     }
 
 }
