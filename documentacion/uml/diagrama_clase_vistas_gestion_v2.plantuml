@@ -1,0 +1,176 @@
+@startuml vistas
+
+
+package "Vistas"{
+    class Usuario {
+    +Id : int
+    +Usuario : string
+    +Clave : string
+    +AutentificarUsuario()
+    +SalirSesion()
+    +ListarProyectos()
+    +AsignarProyecto(ProyectoId,RolId)
+    }
+
+    class Proyecto {
+        +Id
+        +Codigo
+        +Nombre
+        +FechaInicio
+        +FechaTermino
+        +UsuarioJefeId
+        +MetodologiaId
+        +Guardar()
+        +ObtenerPorId(ProyectoId)
+        +ListarProyecto();
+    }
+
+
+    class Cronograma{
+        +Id
+        +ProyectoId
+        +FechaInicio
+        +FechaTermino
+        
+        +Guardar()
+        +ListarCronogramaDetalle()
+        +ObtenerPorId(CronogramaId)
+    }
+
+    class CronogramaFase{
+        +Id
+        +Nombre
+        +CronogramaId
+    }
+
+    class CronogramaElementoConfiguracion{
+        +Id
+        +Codigo
+        +Nombre
+        +CronogramaFaseId
+    }
+
+    class VersionECS{
+        +Id
+        +ElementoConfiguracionId
+        +Version
+        +FechaInicio
+        +FechaTermino
+        +UsuarioResponsableId
+    }
+
+
+
+    class SolicitudCambio{
+        +Id
+        +Codigo
+        +MiembroSolicitanteId
+        +Objetivo
+        +Descripcion
+        +MiembroJefeId
+        +Estado:string  
+        +ObtenerPorId(int:SolicitudCambioIdd)
+    }
+
+
+    class InformeCambio{
+        +Id
+        +SolicitudCambioId
+        +Descripcion
+        +Tiempo
+        +CostoEconomico
+        +ImpactoProblema
+    }
+
+    class DetalleInforme {
+        +Id
+        +UsuarioResponsableId
+        +CronogramaElementoConfiguracionId
+        +Tiempo
+        +Costo
+    }
+
+
+    class OrdenCambio {
+        +Id
+        +SolicitudCambioId
+        +NumeroCambio
+        +NumeroVersion
+        +NombreSolicitante
+        +FechaAprobación
+        +FechaInicio
+        +FechaTermino
+        +Descripcion
+    }
+
+
+    class OrdenCambioDetalle{
+        +Id
+        +OrdenCambioId
+        +CronogramaElementoConfiguracionId
+        +MiembroResponsableId
+        +FechaInicio
+        +FechaTermino
+    }
+
+    class TareaECS{
+        +Id
+        +Codigo
+        +VersionECSId
+        +UsuarioResponsableId
+        +FechaInicio
+        +FechaTermino
+        +Descripcion
+        +Justificacion
+        +PorcentajeAvance
+        +UrlEvidencia
+        +CodigoECS : null
+        +SubirEvidencia(UsuarioId)
+        +Guardar()
+        +ListarPorVersion(VersionId)
+    }
+
+
+
+    class Metodologia{
+        +Id
+        +Nombre
+    }
+
+    class Fase{
+        +Id
+        +Nombre
+        +MetodologiaId
+    }
+
+    class ElementoConfiguracion{
+        +Id
+        +Nombre
+        +Codigo
+    }
+
+    class PlantillaElementoConfiguracion{
+        +Id
+        +MetodologiaFaseId
+        +Codigo
+        +Nombre
+    }
+
+
+
+    ' ALEX
+    class Rol{
+        +Id
+        +Nombre
+    }
+
+
+    class MiembroProyecto{
+        +Id
+        +UsuarioMiembroId
+        +RolId
+        +ProyectoId
+    }
+}
+
+@enduml

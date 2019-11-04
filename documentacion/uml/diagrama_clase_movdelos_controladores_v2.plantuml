@@ -1,0 +1,248 @@
+@startuml Diagrama de clases 2.0
+
+package "Models"{
+    class Usuario {
+    +Id : int
+    +Usuario : string
+    +Clave : string
+    +AutentificarUsuario()
+    +SalirSesion()
+    +ListarProyectos()
+    +AsignarProyecto(ProyectoId,RolId)
+    }
+
+    class Proyecto {
+        +Id
+        +Codigo
+        +Nombre
+        +FechaInicio
+        +FechaTermino
+        +UsuarioJefeId
+        +MetodologiaId
+        +Guardar()
+        +ObtenerPorId(ProyectoId)
+        +ListarProyecto();
+    }
+
+
+    class Cronograma{
+        +Id
+        +ProyectoId
+        +FechaInicio
+        +FechaTermino
+        
+        +Guardar()
+        +ListarCronogramaDetalle()
+        +ObtenerPorId(CronogramaId)
+    }
+
+    class CronogramaFase{
+        +Id
+        +Nombre
+        +CronogramaId
+    }
+
+    class CronogramaElementoConfiguracion{
+        +Id
+        +Codigo
+        +Nombre
+        +CronogramaFaseId
+    }
+
+    class VersionECS{
+        +Id
+        +ElementoConfiguracionId
+        +Version
+        +FechaInicio
+        +FechaTermino
+        +UsuarioResponsableId
+    }
+
+
+
+    class SolicitudCambio{
+        +Id
+        +Codigo
+        +MiembroSolicitanteId
+        +Objetivo
+        +Descripcion
+        +MiembroJefeId
+        +Estado:string  
+        +ObtenerPorId(int:SolicitudCambioIdd)
+    }
+
+
+    class InformeCambio{
+        +Id
+        +SolicitudCambioId
+        +Descripcion
+        +Tiempo
+        +CostoEconomico
+        +ImpactoProblema
+    }
+
+    class DetalleInforme {
+        +Id
+        +UsuarioResponsableId
+        +CronogramaElementoConfiguracionId
+        +Tiempo
+        +Costo
+    }
+
+
+    class OrdenCambio {
+        +Id
+        +SolicitudCambioId
+        +NumeroCambio
+        +NumeroVersion
+        +NombreSolicitante
+        +FechaAprobación
+        +FechaInicio
+        +FechaTermino
+        +Descripcion
+    }
+
+
+    class OrdenCambioDetalle{
+        +Id
+        +OrdenCambioId
+        +CronogramaElementoConfiguracionId
+        +MiembroResponsableId
+        +FechaInicio
+        +FechaTermino
+    }
+
+    class TareaECS{
+        +Id
+        +Codigo
+        +VersionECSId
+        +UsuarioResponsableId
+        +FechaInicio
+        +FechaTermino
+        +Descripcion
+        +Justificacion
+        +PorcentajeAvance
+        +UrlEvidencia
+        +CodigoECS : null
+        +SubirEvidencia(UsuarioId)
+        +Guardar()
+        +ListarPorVersion(VersionId)
+    }
+
+
+
+    class Metodologia{
+        +Id
+        +Nombre
+    }
+
+    class Fase{
+        +Id
+        +Nombre
+        +MetodologiaId
+    }
+
+    class ElementoConfiguracion{
+        +Id
+        +Nombre
+        +Codigo
+    }
+
+    class PlantillaElementoConfiguracion{
+        +Id
+        +MetodologiaFaseId
+        +Codigo
+        +Nombre
+    }
+
+
+
+    ' ALEX
+    class Rol{
+        +Id
+        +Nombre
+    }
+
+
+    class MiembroProyecto{
+        +Id
+        +UsuarioMiembroId
+        +RolId
+        +ProyectoId
+    }
+}
+
+' RELACIONES DE CLASES
+MiembroProyecto "1..1" o-- "1..1" Proyecto : tiene proyecto >
+MiembroProyecto "1..1" o-- "1..1" Usuario : tiene usuario >
+MiembroProyecto "1..1" o-left- "1..1" Rol : tiene rol >
+Metodologia "1..1" o-- "1..*" Fase : tiene fase(s) >
+Cronograma "1..1" o-- "1..*" CronogramaFase : tiene fase(s) >
+CronogramaFase "1..1" o-- "1..*" CronogramaElementoConfiguracion : tiene elementos(s) >
+DetalleInforme o-- InformeCambio
+SolicitudCambio "1..1" o-left- "1..*" InformeCambio : tiene informe(s) >
+MiembroProyecto "1..1" o-- "1..*" SolicitudCambio : tiene solicitud(s) >
+Fase "1..1" o-- "0..*" PlantillaElementoConfiguracion  : tiene >
+ElementoConfiguracion "1..1" o-- "0..*" PlantillaElementoConfiguracion  : tiene >
+VersionECS "1..*" o-- "0..*" TareaECS : tiene varia(s) >
+CronogramaElementoConfiguracion "1..1" o-- "0..*" VersionECS : tiene >
+Proyecto "1..1" o-- "0..1" Metodologia : tiene >
+Proyecto "1..1" -right-o "1..1" Usuario : tiene jefe >
+Proyecto "1..1" o-- "0..1" Cronograma : tiene >
+OrdenCambio "1..1" *-- "0..*" OrdenCambioDetalle : tiene >
+SolicitudCambio "1..1" *-- "1..*" OrdenCambio : tiene <
+
+
+
+package Controller{
+    class ProyectoController{
+        +FrmAgregar()
+        +ActAgregar(Proyecto $ObjProyecto,Cronograma $ObjCronograma,List<Fase> listadoFase , List<ElementoConfiguracion> listadoElementoConfiguracion)
+        +FrmListar(int:$UsuarioId)
+    }
+
+    class MetodologiaController{
+        +FrmAgregar()
+        +ActAgregar()
+        +FrmEditar()
+        +ActEditar()
+        +ActEliminar()
+    }
+
+    class FaseController(){
+        +FrmAgregar(int:$MetodologiaId)
+        +ActAgregar(Fase $ObjFase)
+        +FrmEditar(int:$FaseId)
+    }
+
+    class PlantillaElementoConfiguracionController{
+        +FrmAgregar(int:$FaseId)
+        +ActAgregar(ElementoConfiguracion:$ElementoConfiguracion)
+        +ActEliminar(int:$ElementoConfiguracionId)
+    }
+
+    class ElementoConfiguracionController(){
+        +FrmAgregar()
+        +FrmEditar(int:$ElementoConfiguracionId)
+        +ActEditar(ElementoConfiguracion $ObjElementoConfiguracion)
+        +ActAgrear(ElementoConfiguracion $ObjElementoConfiguracion)
+    }
+
+
+    class SolicitudCambioController{
+        +FrmAgregar()
+        ' +FrmEditar(int:SolicitudCambio)
+    }
+
+    class InformeCambioController{
+        +FrmAgregar(int:$SolicitudCambioId)
+        +ActAgregarInforme(InformeCambio $ObjInformeCambio)
+    }
+
+
+    class OrdenCambioController{
+        +FrmAgregar(int:$SolicitudCambioId)
+    }
+
+}
+@enduml
