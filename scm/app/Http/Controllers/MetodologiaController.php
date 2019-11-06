@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Metodologia as Metodologia;
 use App\Models\Fase as Fase;
 use App\Models\ElementoConfiguracion as ElementoConfiguracion;
+use App\Models\PlantillaElementoConfiguracion as PlantillaElementoConfiguracion;
 
 class MetodologiaController extends Controller
 {
@@ -32,10 +33,12 @@ class MetodologiaController extends Controller
         $ObjMetodologia = Metodologia::ObtenerPorId($MetodologiaId);
         $ObjFase = Fase::ListarPorMetodologia($ObjMetodologia->Id);
         $ObjElementoConfiguracion = ElementoConfiguracion::Listar();
+        $ObjPlantillaECS = PlantillaElementoConfiguracion::Listar();
         return view('Metodologia.Ver', [
             'Metodologia' => $ObjMetodologia, 
             'ListadoFase' => $ObjFase,
-            'ListadoElementoConfiguracion' => $ObjElementoConfiguracion
+            'ListadoElementoConfiguracion' => $ObjElementoConfiguracion,
+            'ListadoPlantillaECS' => $ObjPlantillaECS
         ]);
     }
 

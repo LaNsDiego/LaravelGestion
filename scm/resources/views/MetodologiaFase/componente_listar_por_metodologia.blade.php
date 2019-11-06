@@ -8,7 +8,7 @@
     @foreach($ListadoMetodologiaFase as $indice  => $ObjFase)
 
         @php
-            $activo = $indice == 0 ? "activo" : "";
+            $activo = $indice == 0 ? "active show" : "";
         @endphp
 
 
@@ -21,8 +21,12 @@
 <!-- tab content -->
 <div class="tab-content" id="myTabContent">
     <!-- tab 1 -->
-    @foreach($ListadoMetodologiaFase as $ObjFase)
-        <div class="tab-pane fade active show" id="Fase{{ $ObjFase->Id}}">
+    @foreach($ListadoMetodologiaFase as $indice => $ObjFase)
+
+        @php
+            $activo = $indice == 0 ? "active show" : "";
+        @endphp
+        <div class="tab-pane fade {{ $activo }}" id="Fase{{ $ObjFase->Id}}">
             <input type="hidden" name="FaseId[]" value="{{ $ObjFase->Id}}">
             <div class="pt-3">
 
@@ -30,7 +34,7 @@
                 <!-- checkbox -->
                     <div class="animated-checkbox box-elemento">
                         <label>
-                            <input name="Elemento{{$ObjElemento->Nombre}}[]" value="{{$ObjElemento->Id}}>" type="checkbox"><span class="label-text">{{$ObjElemento->Nombre}}</span>
+                            <input name="Elemento{{$ObjElemento->ElementoConfiguracion->Nombre}}[]" value="{{$ObjElemento->ElementoConfiguracion->Id}}>" type="checkbox"><span class="label-text">{{$ObjElemento->ElementoConfiguracion->Nombre}}</span>
                         </label>
                     </div>
                     <!-- checkbox -->

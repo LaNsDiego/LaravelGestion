@@ -17,8 +17,6 @@ class CreateElementoConfiguracionsTable extends Migration
             $table->increments('Id');
             $table->string('Codigo', 20);
             $table->string('Nombre', 200);
-            $table->integer('FaseId')->unsigned();
-            $table->foreign('FaseId')->references('Id')->on('fase');
         });
     }
 

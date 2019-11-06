@@ -13,7 +13,7 @@ class CronogramaFase extends Model
     {
         $ListadoMetodologiaFase = Fase::where('MetodologiaId',$MetodologiaId)->get();
         foreach ($ListadoMetodologiaFase as $ObjMetodologiaFase){
-            $ObjMetodologiaFase->ListadoElementoConfiguracion = ElementoConfiguracion::where('FaseId',$ObjMetodologiaFase->Id)->get();
+            $ObjMetodologiaFase->ListadoElementoConfiguracion = PlantillaElementoConfiguracion::where('FaseId',$ObjMetodologiaFase->Id)->get();
         }
 
         return $ListadoMetodologiaFase;

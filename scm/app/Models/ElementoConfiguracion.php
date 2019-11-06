@@ -42,11 +42,4 @@ class ElementoConfiguracion extends Model
     {
         return ElementoConfiguracion::find($EcsId);
     }
-
-    public static function ListarECSxFase($FaseId)
-    {
-        return ElementoConfiguracion::where('FaseId', $FaseId)->get();
-    }
-
-    
 }

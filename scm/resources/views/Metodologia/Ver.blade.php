@@ -27,24 +27,23 @@
                         <a href="#" data-toggle="collapse" data-target="#Fase{{ $Fase->Id }}">{{ $Fase->Nombre }}</a>
                         <div class="ml-auto">
                           <a href="/fase/editar/{{ $Fase->Id }}" class="btn btn-sm btn-success"><i class="fa fa-pencil m-0" aria-hidden="true"></i></a>
-                          <a href="/fase/eliminar/{{ $Fase->Id }}?Metodologia={{ $Metodologia->Id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este archivo?');"><i class="fa fa-trash m-0" aria-hidden="true"></i></a>
+                          <a href="/fase/eliminar/{{ $Fase->Id }}?Metodologia={{ $Metodologia->Id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta Fase?');"><i class="fa fa-trash m-0" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <!-- body -->
                     <div id="Fase{{ $Fase->Id }}" class="collapse show_x" data-parent="#accordionFase">
                         <div class="card-body">
-                            @foreach($ListadoElementoConfiguracion as $ECS)
-                            @if($ECS->FaseId == $Fase->Id)
+                            @foreach($ListadoPlantillaECS as $PECS)
+                            @if($PECS->FaseId == $Fase->Id)
                             <!-- element -->
                             <div class="element-item">
                                 <div class="element-wrapper d-sm-flex align-items-center">
                                     <div class="element-header py-2 py-lg-0">
-                                        <h4 class="element-header__title">{{ $ECS->Nombre }}</h4>
-                                        <span class="element-header__code">{{ $ECS->Codigo }}</span>
+                                        <h4 class="element-header__title">{{ $PECS->ElementoConfiguracion->Nombre }}</h4>
+                                        <span class="element-header__code">{{ $PECS->ElementoConfiguracion->Codigo }}</span>
                                     </div>
                                     <div class="element-control ml-auto">
-                                        <a href="/elemento-configuracion/editar/{{ $ECS->Id }}" class="btn btn-sm btn-info"><i class="fa fa-pencil m-0" aria-hidden="true"></i></a>
-                                        <a href="/elemento-configuracion/eliminar/{{ $ECS->Id }}?Metodologia={{ $Metodologia->Id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este archivo?');"><i class="fa fa-trash m-0" aria-hidden="true"></i></a>
+                                        <a href="/plantilla-elemento-configuracion/eliminar/{{ $PECS->Id }}?Metodologia={{ $Metodologia->Id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este ECS?');"><i class="fa fa-trash m-0" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +101,7 @@
       </div>
       <div class="modal-body">
         <!-- form -->
-        <form action="/elemento-configuracion/agregar" method="POST">
+        <form action="/plantilla-elemento-configuracion/agregar" method="POST">
             <div class="form-group">
                 <label class="control-label">Fase</label>
                 <select name="TxtFase" class="form-control" required>
@@ -113,12 +112,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="control-label">Código</label>
-                <input type="text" name="TxtCodigo" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Nombre</label>
-                <input type="text" name="TxtNombre" class="form-control" required>
+                <label class="control-label">Elemento de configuración</label>
+                <select name="TxtElementoConfiguracion" class="form-control" required>
+                  <option value="">Seleccione un elemento de configuración</option>
+                  @foreach($ListadoElementoConfiguracion as $ECS)
+                  <option value="{{ $ECS->Id }}">{{ $ECS->Codigo }} - {{ $ECS->Nombre }}</option>
+                  @endforeach
+                </select>
             </div>
             <div class="form-group pt-2">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

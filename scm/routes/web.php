@@ -38,10 +38,18 @@ Route::prefix('fase')->group(function () {
 
 //Elemento de Configuracion OK
 Route::prefix('elemento-configuracion')->group(function () {
+    Route::get('/listar', 'ElementoConfiguracionController@Listar');
+    Route::get('/agregar', 'ElementoConfiguracionController@FrmAgregar');
     Route::get('/editar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@FrmEditar');
     Route::get('/eliminar/{ElementoConfiguracionId}', 'ElementoConfiguracionController@ActEliminar');
     Route::post('/agregar', 'ElementoConfiguracionController@ActAgregar');
     Route::post('/editar', 'ElementoConfiguracionController@ActEditar');
+});
+
+//Plantilla Elemento de Configuracion OK
+Route::prefix('plantilla-elemento-configuracion')->group(function () {
+    Route::post('/agregar', 'PlantillaElementoConfiguracionController@ActAgregar');
+    Route::get('/eliminar/{PlantillaElementoConfiguracionId}', 'PlantillaElementoConfiguracionController@ActEliminar');
 });
 
 
