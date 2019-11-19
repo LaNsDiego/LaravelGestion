@@ -17,6 +17,7 @@ class CreateOrdenCambioTable extends Migration
         Schema::create('orden_cambio', function (Blueprint $table) {
             $table->increments('Id');
             $table->integer('SolicitudCambioId')->unsigned();
+            $table->integer('JefeId')->unsigned();
             $table->string('NumeroVersion', 200);
             $table->string('NombreSolicitante', 200);
             $table->date('FechaAprobación');
@@ -26,7 +27,8 @@ class CreateOrdenCambioTable extends Migration
             $table->integer('PorcertanjeAvance');
 
             
-            $table->foreign('SolicitudCambioId')->references('Id')->on('usuario');
+            $table->foreign('SolicitudCambioId')->references('Id')->on('solicitud_cambio');
+            $table->foreign('JefeId')->references('Id')->on('usuario');
         });
     }
 
