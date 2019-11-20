@@ -14,18 +14,18 @@
                 <h3 class="tile-title">Datos del Proyecto</h3>
                 <div class="tile-body">     
                     <div class="form-group row">
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <label class="control-label">Proyecto </label>
                             <select class="form-control" name="Proyecto_Id" id="Proyecto_Id">
 
-                                @foreach($AProyecto as $be)
+                                @foreach($ListadoProyecto as $be)
                                 <option value="{{ $be->Id }}">{{ $be->Nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label class="control-label">Fecha </label>
-                            <input type="date" class="form-control" id="Fecha" name="Fecha">
+                            <input type="date" class="form-control text-center" id="Fecha" name="Fecha">
                         </div>
                         
                     </div>

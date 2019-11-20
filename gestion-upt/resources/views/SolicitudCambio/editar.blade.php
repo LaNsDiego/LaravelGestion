@@ -10,22 +10,26 @@
     <div class="col-md-12">
         <form action="/SolicitudCambio/update" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" value="{{$solicitudcambio->Id}}" name="Id" id="Id">
+            <input type="hidden" value="{{$ObjSolicitud->Id}}" name="Id" id="Id">
             <div class="tile">
                 <h3 class="tile-title">Datos del Proyecto</h3>
                 <div class="tile-body">     
                     <div class="form-group row">
-                        <div class="col-md-10">
+                        <div class="col-md-2">
+                                <label class="control-label ">Codigo </label>
+                                <input type="text" value="{{ $ObjSolicitud->Codigo }}" class="form-control text-center" readonly id="Codigo" name="Codigo">
+                        </div>
+                        <div class="col-md-7">
                             <label class="control-label">Proyecto </label>
                             <select class="form-control" name="Proyecto_Id" id="Proyecto_Id">
-                                    @foreach($AProyecto as $be)
-                                    <option value="{{ $be->Id }}" {{ $be->Id == $solicitudcambio->Proyectoid ? 'selected':'' }}>{{ $be->Nombre }}</option>
+                                    @foreach($ListadoProyecto as $be)
+                                    <option value="{{ $be->Id }}" {{ $be->Id == $ObjSolicitud->ProyectoId ? 'selected':'' }}>{{ $be->Nombre }}</option>
                                     @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <label class="control-label">Fecha </label>
-                        <input type="date" value="{{ $solicitudcambio->Fecha }}" class="form-control" id="Fecha" name="Fecha">
+                        <div class="col-md-3">
+                            <label class="control-label ">Fecha </label>
+                            <input type="date" value="{{ $ObjSolicitud->Fecha }}" class="form-control text-center" id="Fecha" name="Fecha">
                         </div>
                         
                     </div>
@@ -39,17 +43,17 @@
                     <div class="form-group row">
                         <div class="col-md-10">
                             <label class="control-label">Objetivo</label>
-                                <input type="text" value="{{ $solicitudcambio->Objetivo }}" class="form-control" id="Objetivo" name="Objetivo">
+                                <input type="text" value="{{ $ObjSolicitud->Objetivo }}" class="form-control" id="Objetivo" name="Objetivo">
                         </div>
                         <div class="col-md-2">
                                 <label class="control-label">Solicitante</label>
-                                <input readonly type="text" value="{{ $solicitudcambio->Usuario_Solicitante }}" class="form-control" id="Solicitante" name="Solicitante">
+                                <input readonly type="text" value="{{ $ObjSolicitud->Usuario_Solicitante }}" class="form-control" id="Solicitante" name="Solicitante">
                             </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label">Descripción</label>
-                        <textarea class="form-control" name="Descripcion" id="Descripcion" rows="4">{{ $solicitudcambio->Descripcion }}</textarea>
+                        <textarea class="form-control" name="Descripcion" id="Descripcion" rows="4">{{ $ObjSolicitud->Descripcion }}</textarea>
                     </div>
                   
                 </div>

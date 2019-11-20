@@ -15,21 +15,22 @@ class SolicitudCambioController extends Controller
 {
     public function FrmListar(){
 
-        $SolicitudCambio = SolicitudCambio::Listar(1);
-        return view('SolicitudCambio.listar', ['ASolicitudCambio' => $SolicitudCambio]);
+        $ListadoSolicitud = SolicitudCambio::ListarSolicitud(1);
+        return view('SolicitudCambio.listar', ['ListadoSolicitud' => $ListadoSolicitud]);
 
     }
     public function FrmAgregar(){
         
-        $Proyecto = Proyecto::ListarPorParticipanteId(1);
+        $ListadoProyecto = Proyecto::ListarPorParticipanteId(1);
        
-        return view('SolicitudCambio.agregar', ['AProyecto' => $Proyecto]);
+        return view('SolicitudCambio.agregar', ['ListadoProyecto' => $ListadoProyecto]);
     }
 
 
-    public function ActAgregar(Request $request){
+    public function ActAgregarSolicitud(Request $request){
         
         $solicitudcambio = new SolicitudCambio;
+        $solicitudcambio->Codigo = "SC-".rand(10,99).rand(100,999);
         $solicitudcambio->Proyectoid = $request->Proyecto_Id;
         $solicitudcambio->Miembrosolicitanteid = 1;
         $solicitudcambio->Fecha = $request->Fecha;
@@ -37,18 +38,16 @@ class SolicitudCambioController extends Controller
         $solicitudcambio->Descripcion = $request->Descripcion;
         $solicitudcambio->Estado = 1;
         $solicitudcambio->Miembrojefeid = 1;
-        $solicitudcambio->Guardar();
+        SolicitudCambio::GuardarSolicitud($solicitudcambio);
         return redirect()->action('SolicitudCambioController@FrmListar');
   
     }
 
     public function FrmEditar($SolicitudId){
        
-        $Proyecto = Proyecto::ListarPorParticipanteId(1);
-        $Asolicitudcambio = SolicitudCambio::ObtenerPorId($SolicitudId);
-        
-
-        return view('SolicitudCambio.editar',['AProyecto' => $Proyecto, 'solicitudcambio' => $Asolicitudcambio ] );
+        $ListadoProyecto = Proyecto::ListarPorParticipanteId(1);
+        $ObjSolicitud = SolicitudCambio::ObtenerSolicitudPorId($SolicitudId);
+        return view('SolicitudCambio.editar',['ListadoProyecto' => $ListadoProyecto, 'ObjSolicitud' => $ObjSolicitud ] );
     }
     public function ActEditar(Request $request){
 
@@ -63,17 +62,18 @@ class SolicitudCambioController extends Controller
         $objsolicitudcambio->Fecha = $request->Fecha;
         $objsolicitudcambio->Objetivo = $request->Objetivo;
         $objsolicitudcambio->Descripcion = $request->Descripcion;
-        if(SolicitudCambio::Editar($objsolicitudcambio) > 0){
+        if(SolicitudCambio::EditarSolicitud($objsolicitudcambio) > 0){
             return redirect()->action('SolicitudCambioController@FrmListar');
         }
 
     }
-    public function FrmAtender($SolicitudId){
-        $Proyecto = Proyecto::ListarPorParticipanteId(1);
-        $solicitudcambio = SolicitudCambio::ObtenerPorId($SolicitudId);
-        $Fase = Fase::ListarPorProyecto($solicitudcambio->Proyectoid);
+    public function FrmInformeCambio($SolicitudId){
+        // $Proyecto = Proyecto::ListarPorParticipanteId(1);
+        $solicitudcambio = SolicitudCambio::ObtenerSolicitudPorId($SolicitudId);
+        // $Fase = Fase::ListarPorProyecto($solicitudcambio->Proyectoid);
         session()->forget('DInformeCambio');
-        return view('SolicitudCambio.atender',['AProyecto' => $Proyecto, 'Asolicitudcambio' => $solicitudcambio, 'AFase' => $Fase ] );
+        // return view('SolicitudCambio.atender',['AProyecto' => $Proyecto, 'Asolicitudcambio' => $solicitudcambio, 'AFase' => $Fase ] );
+        return view('SolicitudCambio.informe' );
     }
     public function delete(){
         return view('SolicitudCambio.agregar');

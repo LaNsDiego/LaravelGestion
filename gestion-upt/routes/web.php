@@ -68,12 +68,12 @@ Route::get('/metodologia-fase/listar/{MetodologiaId}', 'CronogramaFaseController
 Route::get('SolicitudCambio/listar', 'SolicitudCambioController@FrmListar')->name('SolicitudCambio.listar');
 //NUEVO
 Route::get('SolicitudCambio/create', 'SolicitudCambioController@FrmAgregar')->name('SolicitudCambio.create');
-Route::post('SolicitudCambio/store', 'SolicitudCambioController@ActAgregar')->name('SolicitudCambio.store');
+Route::post('SolicitudCambio/store', 'SolicitudCambioController@ActAgregarSolicitud')->name('SolicitudCambio.store');
 //EDITAR
 Route::get('SolicitudCambio/edit/{SolicitudId}', 'SolicitudCambioController@FrmEditar')->name('SolicitudCambio.edit');
 Route::post('SolicitudCambio/update', 'SolicitudCambioController@ActEditar')->name('SolicitudCambio.update');
 //VER
-Route::get('SolicitudCambio/atender/{SolicitudId}', 'SolicitudCambioController@FrmAtender')->name('SolicitudCambio.atender');
+Route::get('SolicitudCambio/informe/{SolicitudId}', 'SolicitudCambioController@FrmInformeCambio')->name('SolicitudCambio.informe');
 //ELIMINAR
 Route::get('SolicitudCambio/{SolicitudId}', 'SolicitudCambioController@delete')->name('SolicitudCambio.delete');
 
